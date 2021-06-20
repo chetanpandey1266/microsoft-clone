@@ -1,0 +1,67 @@
+/* Navbar */
+
+.navbar-main {
+    /* background-color: aqua; */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex: 1 2 1;
+}
+
+
+/* Icons */
+
+.navbar-icon {
+    margin: 0 3rem;
+}
+
+.navbar-icon img{
+    padding: 20px 1rem;
+    width: 112px;
+    height: 22px;   
+}
+
+.navbar-item {
+    display: flex;
+    flex-direction: row;
+}
+
+
+
+
+/* Right Most Part */
+
+.navbar-loginup{
+    display: flex;
+    flex-direction: row;
+}
+
+.navbar-logup {
+    margin: 15px 10px;
+    padding: 8px 1rem;
+    border: none;
+    color: #fff;
+    font-size: 15px;
+    font-family: 'Arial';
+    font-weight: 700;
+    background-color: #4B53BC;
+}
+
+.navbar-logup:hover {
+    text-decoration: underline solid;
+    cursor: pointer;
+}
+
+.navbar-login {
+    margin: 15px 10px;
+    padding: 8px 1rem;
+    border: none;
+    font-size: 15px;
+    font-family: 'Arial';
+    font-weight: 500;
+    background-color: #fff;
+}
+
+.navbar-login:hover{
+    cursor: pointer;
+}

@@ -1,0 +1,46 @@
+.userNavbar-main {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: #5458AF;
+    padding: 0 5%;
+}
+
+.userNavbar-main h2 {
+    color: #fff;
+}
+
+.userNavbar-main-search {
+    padding-top: 0.7rem;
+    height: 35px;
+    width: 50%;
+}
+
+.userNavbar-main-search input::placeholder {
+    text-align: center;
+}
+
+.userNavbar-main-search input:focus {
+    outline: none;
+}
+
+.userNavbar-main-search input {
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    font-size: 18px;
+}
+
+.userNavbar-main-profile {
+    height: 40px;
+    width: 40px;
+    margin-top: 10px;
+    padding-right: 3px;
+    background-color: white;
+    border-radius: 50%;
+}
+
+.userNavbar-main-profile img{
+    height: 100%;
+    width: 100%;
+}

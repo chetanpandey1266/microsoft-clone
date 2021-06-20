@@ -1,0 +1,114 @@
+/* Landing Page Front */
+
+.landingPage-front {
+    display: flex;
+    flex-direction: row;
+}
+
+/* LeftSide */
+
+.landingPage-front-leftside {
+    padding: 7% 10%;
+    width: 100%;
+    background-color:#F5F5F5;
+}
+
+.landingPage-front-leftside h1 {
+    font-family: 'Arial';
+    font-size: 3rem;
+    color: #4B53BC;
+}
+
+.landingPage-front-leftside h3 {
+    font-family: 'Arial';
+    font-size: 1.5rem;
+    color: #000000;
+}
+
+
+.landingPage-front-loginup {
+    display: flex;
+    flex-direction: row;
+}
+
+.landingPage-front-logup {
+    margin: 15px 10px;
+    padding: 10px 1rem;
+    border: none;
+    color: #fff;
+    font-size: 15px;
+    font-family: 'Arial';
+    font-weight: 700;
+    background-color: #4B53BC;
+}
+
+.landingPage-front-login {
+    margin: 15px 10px;
+    padding: 10px 3rem;
+    border: solid #4b53bc 2px;
+    color: #4B53BC;
+    font-size: 15px;
+    font-family: 'Arial';
+    font-weight: 500;
+    background-color: #fff;
+}
+
+.landingPage-front-login:hover {
+    cursor: pointer;
+    
+}
+
+.landingPage-front-logup:hover {
+    cursor: pointer;
+}
+
+/* RightSide */
+
+.landingPage-front-rightside img{
+    height: 100%;
+    width: 100%;
+}
+
+
+/* Landing Page Middle */
+
+.landingPage-middle {
+    display: flex;
+    flex-direction: row;
+    padding: 12% 8%;
+}
+
+.landingPage-middle-img {
+    display: flex;
+    flex-direction: row;
+}
+
+@media screen and (max-width:1080px){
+    .landingPage-middle-img {   
+        flex-direction: column;
+    }
+}
+
+.landingPage-middle-txt {
+    padding-top: 10%;
+    padding-right: 2%;
+    align-items: center;
+}
+
+.landingPage-middle-img1-work img{
+    height: 582px;
+    width: 375px;
+    padding: 10px;
+}
+
+.landingPage-middle-img2-home img{
+    height: 375px;
+    width: 375px;
+    padding: 10px;
+}
+
+.landingPage-middle-img2-school img{
+    height: 187px;
+    width: 375px;
+    padding: 10px;
+}

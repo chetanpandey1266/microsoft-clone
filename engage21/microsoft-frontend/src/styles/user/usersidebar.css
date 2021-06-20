@@ -1,0 +1,30 @@
+.userSidebar-main {
+    display: flex;
+    flex-direction: column;
+    background-color: #DCDCDC;
+    position: absolute;
+    top:0px;
+    bottom: 0px;
+    width:6rem;
+    z-index: -1;
+    padding-top:10rem;
+    padding-left: 2rem;
+}
+
+.userSidebar-main h2 {
+    color: #5458AF;
+}
+
+.userSidebar-main-chats, .userSidebar-main-teams, .userSidebar-main-calendar {
+    background-color: #abb0ad;
+    margin-top: 1rem;
+    margin-right: 1.6rem;
+    text-align: center;
+    border-radius: 0.8rem;
+    color: #F5F5F5;
+}
+
+.userSidebar-main-chats:hover, .userSidebar-main-teams:hover, .userSidebar-main-calendar:hover {
+    color: #5458AF;
+    cursor: pointer;
+}

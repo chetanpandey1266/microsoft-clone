@@ -1,0 +1,37 @@
+.footer-main {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: #F2F2F2;
+    width: 100%;
+}
+
+.footer-main-left{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0rem 3rem;
+}
+
+.footer-main-left img {
+    height: 20px;
+    width:20px;
+    padding-top: 15px;
+    margin: 0 1rem;
+}
+
+.footer-main-left p {
+    color:grey;
+}
+
+.footer-main-right {
+    float: right;
+    color: grey;
+    margin: 0 3rem;
+}
+
+.footer-main-right:hover {
+    color: #000000;
+    text-decoration: underline solid #000000;
+    cursor: pointer;
+}

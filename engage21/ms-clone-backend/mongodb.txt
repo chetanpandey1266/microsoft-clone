@@ -1,0 +1,25 @@
+Comparison Operators
+
+eq equal
+ne not equal
+gt greater than
+gte greater than equal to
+lt less than 
+lte less than equal to 
+in  
+nin not in
+
+Logical Query Operators
+or, and
+
+
+.count() at the end will give you the number of documents that fulfill that criteria
+    const users = await User
+        .find({price: {$gte: 10, $lte: 20}}) // $ to specify that its an operator
+        .or({name:"Chetan", email:"example@gmail.com"}) // returns all document that fulfills either of the condition
+        .limit(10)
+        .sort({name: 1})
+        .select({name:1, email:1})
+        .count()
+
+    
