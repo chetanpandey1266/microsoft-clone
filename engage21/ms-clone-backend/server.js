@@ -3,7 +3,10 @@ const app = express();
 const http = require('http');
 const server = http.createServer(app);
 const cors = require('cors');
+const bcrypt = require('bcrypt');
 const user_route = require('./routes/user.js')
+
+// hash my password
 
 app.use(
   cors({
@@ -43,14 +46,17 @@ app.post('/signin01', (req, res) => {
     res.redirect(`/signin02?email=${email}`)
 })
 
-app.post('/signin02', (req, res) => {
+app.post('/signin02', async (req, res) => {
     const pswrd = req.body.password;
     const email = req.query.email;
-    User.find({email:email, password: pswrd}).
+    const salt = await bcrypt.genSalt(10);
+    const hashed_pswrd = await bcrypt.hash(pswrd, salt);
+    User.find({email:email, password: hashed_pswrd}).
     then(user => { 
-        console.log(user);
-        res.redirect(`/user`);
-        res.end(JSON.stringify(user))
+        const token = user.generateAuthToken();
+        res.header('x-auth-token', token);
+        res.redirect("/user");
+        
     })
     .catch(err => {
         console.log(err.message);
@@ -60,13 +66,17 @@ app.post('/signin02', (req, res) => {
 
 // SignUp
 
-app.post('/signup01', (req, res) => {
+app.post('/signup01',  async (req, res) => {
     const name = req.body.name;
     const email = req.body.email;
-    res.redirect(`/signup02?name=${name}&email=${email}`)
+    const user = await User.find({email:email});
+    if(user.length){
+        res.status(400).send(); // if email is already used
+    }
+    res.redirect(`/signup02?name=${name}&email=${email}`);
 })
 
-app.post('/signup02', (req, res) => {
+app.post('/signup02', async (req, res) => {
     const name = req.query.name;
     const email = req.query.email;
     const password = req.body.password;
@@ -74,13 +84,18 @@ app.post('/signup02', (req, res) => {
     const user = new User({
         name: name,
         email: email,
-        password: password
+        password: password,
     })
+    const salt = await bcrypt.genSalt(10);
+    const hashed_pswrd = await bcrypt.hash(password, salt);
+    user.password = hashed_pswrd; // hased password
 
-    user.save()
-        .then(() => console.log("Saved Data"))
-        .catch(err => console.log(err.message))
-    res.status(200).send()
+    await user.save();
+    const result = await User.find({email: email})
+    const token = result[0].generateAuthToken();
+    // console.log(result, token);
+    res.header('x-auth-token', token);
+    res.redirect(`/user?token=${token}`);
 })
 
 // Start server
