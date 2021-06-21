@@ -20,7 +20,7 @@ function Login02() {
                 <img src={logo} alt="Microsoft"/>
                 <h2>Sign in</h2>
                 <form method="POST" onSubmit={() => handleSubmit()} id="login02" className="login-main-email">
-                    <input placeholder="Password" name="password" onChange={(data) => setPswrd(data)}/>
+                    <input type="password" placeholder="Password" name="password" onChange={(data) => setPswrd(data)}/>
                 </form>
                 <p><span>Forgot Password!</span></p>
                 <div className="login-main-button">

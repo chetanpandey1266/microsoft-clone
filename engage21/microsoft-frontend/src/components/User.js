@@ -7,7 +7,7 @@ import axios from 'axios';
 
 
 
-function User() {
+function User(props) {
 
     let [logged, setLogged] = useState(false);
     // const [user, setUser] = useState({});
@@ -18,7 +18,10 @@ function User() {
             console.log(e);
             setLogged(true);
         })
-        .catch(err => console.error(err))
+        .catch(err =>{ 
+            console.error(err)
+            debugger;
+        })
     }, [])
     
     const [active, setActive] = useState(0);
