@@ -1,4 +1,3 @@
-import './App.css';
 import Login01 from './components/Loginup/Login01';
 import MainPage from './components/MainPage';
 import {BrowserRouter as Router, Switch, Route } from 'react-router-dom';

@@ -64,6 +64,10 @@
     background-color: #0067B8;
 }
 
+.login-main-button button:hover{
+    cursor: pointer;
+}
+
 
 @media screen and (max-width: 1080px) {
     .login-main {

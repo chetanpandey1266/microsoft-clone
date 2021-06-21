@@ -17,7 +17,6 @@ function Signup01() {
 
     const handleSubmit = () => {
         console.log(data)
-        debugger;
         axios.post("https://localhost:5000/signup01", data)
             .then(() => console.log("posted successfully"))
             .catch(err => console.log(err));

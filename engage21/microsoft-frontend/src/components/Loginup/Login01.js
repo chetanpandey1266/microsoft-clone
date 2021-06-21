@@ -15,9 +15,6 @@ function Login01() {
             .catch(err => {
                 console.log(err.message);
             })
-            .finally(() => { 
-                console.log("I am running fine")
-            })
     }
 
     return (
@@ -25,8 +22,8 @@ function Login01() {
             <div className="login-main">
                 <img src={logo} alt="Microsoft"/>
                 <h2>Sign in</h2>
-                <form onSubmit={() => handleSubmit()} method="post" id="login01" className="login-main-email">
-                    <input placeholder="Email" name="email" onChange={e =>{ 
+                <form  method="POST" onSubmit={() => handleSubmit()} id="login01" className="login-main-email">
+                    <input placeholder="Email" name="email" onChange={e => { 
                         setEmail(e.target.value)
                     }}/>
                 </form>

@@ -1,19 +1,42 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import UserNavbar from './User/UserNavbar.js'
 import UserSidebar from './User/UserSidebar.js'
 import UserMain from './User/UserMain.js'
+import axios from 'axios';
+
+
+
 
 function User() {
 
-    const [active, setActive] = useState(0);
+    let [logged, setLogged] = useState(false);
+    // const [user, setUser] = useState({});
+
+    useEffect(() => {
+        axios.get("http://localhost:5000/user")
+        .then(e => {
+            console.log(e);
+            setLogged(true);
+        })
+        .catch(err => console.error(err))
+    }, [])
     
+    const [active, setActive] = useState(0);
+    if(logged){
+        return (
+            <div>
+                <UserNavbar/>
+                <UserSidebar name={logged} changeActive={setActive}/>
+                <UserMain status={active}/>
+            </div>
+        )
+    }
     return (
         <div>
-            <UserNavbar/>
-            <UserSidebar name="User Name" changeActive={setActive}/>
-            <UserMain status={active}/>
+            Login Details May be Wrong
         </div>
     )
+    
 }
 
 export default User
