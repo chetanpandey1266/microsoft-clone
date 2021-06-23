@@ -24,7 +24,6 @@ app.use("/user", user_route);
 const mongoose = require('mongoose')
 const User = require('./Schema/user.js')
 const config = require('./config/default.json');
-const user = require('./Schema/user.js');
 
 mongoose.connect(`${config['connection_string']}`, {useNewUrlParser:true, useUnifiedTopology:true})
 .then(() => console.log("Connected to Database"))
@@ -49,13 +48,15 @@ app.post('/signin01', (req, res) => {
 app.post('/signin02', async (req, res) => {
     const pswrd = req.body.password;
     const email = req.query.email;
-    const salt = await bcrypt.genSalt(10);
-    const hashed_pswrd = await bcrypt.hash(pswrd, salt);
-    User.find({email:email, password: hashed_pswrd}).
+    // const salt = await bcrypt.genSalt(10);
+    // const hashed_pswrd = await bcrypt.hash(pswrd, salt);
+    // count.log(hashed_pswrd);
+    User.find({email:email, password: pswrd}).
     then(user => { 
-        const token = user.generateAuthToken();
+        console.log(user)
+        const token = user[0].generateAuthToken();
         res.header('x-auth-token', token);
-        res.redirect("/user");
+        res.redirect(`/user?token=${token}`);
         
     })
     .catch(err => {
@@ -77,23 +78,23 @@ app.post('/signup01',  async (req, res) => {
 })
 
 app.post('/signup02', async (req, res) => {
+    console.log("first-------------------------------------------------------------------")
     const name = req.query.name;
     const email = req.query.email;
     const password = req.body.password;
-    console.log(name, email, password);
+    console.log("user", name, email, password);
     const user = new User({
         name: name,
         email: email,
         password: password,
     })
-    const salt = await bcrypt.genSalt(10);
-    const hashed_pswrd = await bcrypt.hash(password, salt);
-    user.password = hashed_pswrd; // hased password
+    // const salt = await bcrypt.genSalt(10);
+    // const hashed_pswrd = await bcrypt.hash(password, salt);
+    // user.password = hashed_pswrd; // hased password
 
     await user.save();
     const result = await User.find({email: email})
     const token = result[0].generateAuthToken();
-    // console.log(result, token);
     res.header('x-auth-token', token);
     res.redirect(`/user?token=${token}`);
 })

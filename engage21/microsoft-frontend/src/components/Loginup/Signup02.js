@@ -3,17 +3,18 @@ import '../../styles/signup.css'
 import logo from '../../images/navbar/navbar_icon.png'
 import axios from 'axios';
 
+
 function Signup02(props) {
 
     let [password, setPassword] = useState();
-
     const handleSubmit = () => {
-
         axios.post("http://localhost:5000/signup02", password)
-            .then(e => console.log("Successfully posted !!"))
+            .then(e => {
+                console.log(e)
+                console.log("Successfully posted !!")
+            })
             .catch(err => console.log(err.message));
     }
-
     return (
         <div>
            <div className="signup">

@@ -7,7 +7,6 @@ function Login01() {
 
     let [email, setEmail] = useState({});
     const handleSubmit = () => {
-        console.log(email)
         axios.post("http://localhost:5000/", email)
             .then(() => {
                 console.log("Submitted Successfully")
