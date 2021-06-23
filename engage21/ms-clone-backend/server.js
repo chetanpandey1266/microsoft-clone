@@ -48,15 +48,18 @@ app.post('/signin01', (req, res) => {
 app.post('/signin02', async (req, res) => {
     const pswrd = req.body.password;
     const email = req.query.email;
-    // const salt = await bcrypt.genSalt(10);
-    // const hashed_pswrd = await bcrypt.hash(pswrd, salt);
-    // count.log(hashed_pswrd);
-    User.find({email:email, password: pswrd}).
-    then(user => { 
+    User.find({email:email}).
+    then(async user => { 
         console.log(user)
-        const token = user[0].generateAuthToken();
-        res.header('x-auth-token', token);
-        res.redirect(`/user?token=${token}`);
+        const isTrue = await bcrypt.compare(pswrd, user[0].password);
+        if(isTrue){
+            const token = user[0].generateAuthToken();
+            res.header('x-auth-token', token);
+            res.redirect(`/user?token=${token}`);
+        }else{
+            res.status(401).send('Invalid Password')
+        }
+       
         
     })
     .catch(err => {
@@ -88,9 +91,9 @@ app.post('/signup02', async (req, res) => {
         email: email,
         password: password,
     })
-    // const salt = await bcrypt.genSalt(10);
-    // const hashed_pswrd = await bcrypt.hash(password, salt);
-    // user.password = hashed_pswrd; // hased password
+    const salt = await bcrypt.genSalt(10);
+    const hashed_pswrd = await bcrypt.hash(password, salt);
+    user.password = hashed_pswrd; // hased password
 
     await user.save();
     const result = await User.find({email: email})
