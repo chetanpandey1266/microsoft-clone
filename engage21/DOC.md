@@ -24,10 +24,10 @@ The backend folder contains a `server.js` and `routes/user.js` file. Schema for 
 
 The funtions of each routes:
     
-    1. `/`: just sends a `200` response.
-    2. `/signup01`: This takes in the username and email from the fronten and checks whether a user with same email exists or not. In case a user with same email is found it returns `400` error. Otherwise it redirects to the second page `/signup02`. On redirection, the username and email is passed as query string to the next page.
-    3. `/signup02`: This accepts password from the form and takes username and email from the query string. Then the password is hashed using `bcrypt` and finally saved to the database. The database contains a `generateAuthToken` method which takes in `_id` and returns jwttoken for the user. This jwttoken is passed on as query string to the `/user` page.
-    4. `/signin01`: This accepts user email and checks whether the provided email is present in the database or not. If user is present then it continues to the next page `/signin02` else it returns 404 error.
+- `/`: just sends a `200` response.
+- `/signup01`: This takes in the username and email from the fronten and checks whether a user with same email exists or not. In case a user with same email is found it returns `400` error. Otherwise it redirects to the second page `/signup02`. On redirection, the username and email is passed as query string to the next page.
+- `/signup02`: This accepts password from the form and takes username and email from the query string. Then the password is hashed using `bcrypt` and finally saved to the database. The database contains a `generateAuthToken` method which takes in `_id` and returns jwttoken for the user. This jwttoken is passed on as query string to the `/user` page.
+- `/signin01`: This accepts user email and checks whether the provided email is present in the database or not. If user is present then it continues to the next page `/signin02` else it returns 404 error.
     5. `/signin02`: It takes in email from querystring and password from the form. This password is compared against the one in the database. If the password matches, a jwt token is generated (same as in `/signup02`) and passed on to the frontend as querystring.
 
 After signup/signin, the jwt passed onto the frontend as querystring is saved in the localStorage. On signup/signin only, the websocket connection is made. All this happens  once the user is signin/signup. This ensures that the socket connection that is established once remains until the user is signed. As I have not designed signout button till now, so everytime a newuser signups, the localStorage is cleared inorder to save token of the new user.  
