@@ -14,7 +14,7 @@ Coming Soon😅
 I had mainly three components: 
 - MainPage: This makes up the landing page of the site. It is basically made up of three subcomponents, i.e., `header`, `landing page` and `footer`. 
 - Login/Signup: For login/signup feature, I have made multipage form. 
-- User.js: User component comprises of three subcomponents, i.e., `UserMainTeam`, `UserMainChat` and `UserMainCalendar`. 
+- User.js: User component comprises is made up of three subcomponents, i.e., `UserNavbar`, `UserSidebar`, `UserMain`. `UserMain` is a container that contains, `UserMainChat`, `UserMainTeam` and `UserMainCalendar`. Each one of them appears on the basis of what  is selected on the sidebar.
 
 ## How I implemented the backend part 
 
