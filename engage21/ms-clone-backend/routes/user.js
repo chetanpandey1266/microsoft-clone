@@ -11,8 +11,7 @@ if(!config['jwtPrivateKey']){
 }
 
 router.get('/', async (req, res) => {
-    console.log('second-------------------------------------------------------------------------')
-    console.log("token", req.headers['x-auth-token'])
+    console.log("token :", req.headers['x-auth-token'])
     const token = req.headers['x-auth-token']
     if(!token) res.status(401).send('Access Denied. No token Provided');
     try {

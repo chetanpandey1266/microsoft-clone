@@ -4,12 +4,14 @@ import UserMainCalendar from './UserMain/UserMainCalendar'
 import UserMainChat from './UserMain/UserMainChat'
 import UserMainTeam from './UserMain/UserMainTeam'
 
-const options = [<UserMainChat /> ,<UserMainTeam /> ,<UserMainCalendar />];
 
 function UserMain(props) {
+
+    const options = [<UserMainChat /> ,<UserMainTeam socket_id={props.socket_id} socket={props.socket}/> ,<UserMainCalendar />];
+
     return (
             <div className="userName-main">
-                {options[parseInt(props.status)%3]}
+                {options[parseInt(props.status)]}
             </div>
     )
 }   

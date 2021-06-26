@@ -2,10 +2,19 @@ const express = require('express');
 const app = express();
 const http = require('http');
 const server = http.createServer(app);
+
 const cors = require('cors');
 const bcrypt = require('bcrypt');
 const user_route = require('./routes/user.js')
 
+const socket = require('socket.io');
+const io = socket(server, {
+    cors: {
+        origin: ['http://localhost:3000', 'https://localhost:3000/*'],
+        methods: ["POST", "GET"],
+    },
+    path: "/user"
+});
 // hash my password
 
 app.use(
@@ -29,6 +38,28 @@ mongoose.connect(`${config['connection_string']}`, {useNewUrlParser:true, useUni
 .then(() => console.log("Connected to Database"))
 .catch(err => console.log(err))
 
+// Socket connection 
+
+io.on("connection", socket => {
+    console.log("Inside connection")
+    socket.emit("me", socket.id);
+    console.log(Date.now());
+    console.log(socket.id)
+    socket.on("disconnect", () => {
+        socket.broadcast.emit("callEnded");
+    })
+
+    socket.on("callUser", (data) => {
+        io.to(data.userToCall).emit("callUser", {signal: data.signalData, from: data.from, name: data.name})
+    })
+
+    socket.on("answerCall", (data) => {
+        io.to(data.to).emit("callAccepted", data.signal)
+    }) 
+})
+
+
+
 // '/'
 
 app.get('/', (req, res) => {
@@ -40,7 +71,7 @@ app.get('/', (req, res) => {
 
 app.post('/signin01', (req, res) => {
     const email = req.body.email;
-    if(!User.find({email: email})) res.status(404).send();
+    if(!User.find({email: email})) res.status(404).send("Not Registered");
     console.log(email);
     res.redirect(`/signin02?email=${email}`)
 })
@@ -50,7 +81,7 @@ app.post('/signin02', async (req, res) => {
     const email = req.query.email;
     User.find({email:email}).
     then(async user => { 
-        console.log(user)
+        // console.log(user)
         const isTrue = await bcrypt.compare(pswrd, user[0].password);
         if(isTrue){
             const token = user[0].generateAuthToken();
@@ -58,9 +89,7 @@ app.post('/signin02', async (req, res) => {
             res.redirect(`/user?token=${token}`);
         }else{
             res.status(401).send('Invalid Password')
-        }
-       
-        
+        } 
     })
     .catch(err => {
         console.log(err.message);
@@ -75,17 +104,16 @@ app.post('/signup01',  async (req, res) => {
     const email = req.body.email;
     const user = await User.find({email:email});
     if(user.length){
-        res.status(400).send(); // if email is already used
+        res.status(400).send("Already Registered"); // if email is already used
     }
     res.redirect(`/signup02?name=${name}&email=${email}`);
 })
 
 app.post('/signup02', async (req, res) => {
-    console.log("first-------------------------------------------------------------------")
     const name = req.query.name;
     const email = req.query.email;
     const password = req.body.password;
-    console.log("user", name, email, password);
+    // console.log("user", name, email, password);
     const user = new User({
         name: name,
         email: email,
@@ -101,6 +129,9 @@ app.post('/signup02', async (req, res) => {
     res.header('x-auth-token', token);
     res.redirect(`/user?token=${token}`);
 })
+
+
+
 
 // Start server
 
