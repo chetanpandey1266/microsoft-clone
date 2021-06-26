@@ -1,7 +1,9 @@
 const express = require('express');
+const session = require('express-session');
 const app = express();
 const http = require('http');
 const server = http.createServer(app);
+const { v4: uuidv4 } = require('uuid');
 
 const cors = require('cors');
 const bcrypt = require('bcrypt');
@@ -25,6 +27,18 @@ app.use(
 );
 app.use(express.urlencoded({extended:false}));
 app.use(express.json());
+app.use(session({
+    // It holds the secret key for session
+    secret: 'Your_Secret_Key',
+    // Forces the session to be saved
+    // back to the session store
+    resave: true,
+    // Forces a session that is "uninitialized"
+    // to be saved to the store
+    saveUninitialized: true,
+
+}))
+
 
 // routes
 app.use("/user", user_route);
@@ -42,8 +56,8 @@ mongoose.connect(`${config['connection_string']}`, {useNewUrlParser:true, useUni
 
 io.on("connection", socket => {
     console.log("Inside connection")
+    // socket.id = session.socketid
     socket.emit("me", socket.id);
-    console.log(Date.now());
     console.log(socket.id)
     socket.on("disconnect", () => {
         socket.broadcast.emit("callEnded");
@@ -57,7 +71,6 @@ io.on("connection", socket => {
         io.to(data.to).emit("callAccepted", data.signal)
     }) 
 })
-
 
 
 // '/'
@@ -85,6 +98,7 @@ app.post('/signin02', async (req, res) => {
         const isTrue = await bcrypt.compare(pswrd, user[0].password);
         if(isTrue){
             const token = user[0].generateAuthToken();
+            req.session.socketid = uuidv4();
             res.header('x-auth-token', token);
             res.redirect(`/user?token=${token}`);
         }else{
@@ -126,6 +140,7 @@ app.post('/signup02', async (req, res) => {
     await user.save();
     const result = await User.find({email: email})
     const token = result[0].generateAuthToken();
+    req.session.socketid = uuidv4();
     res.header('x-auth-token', token);
     res.redirect(`/user?token=${token}`);
 })

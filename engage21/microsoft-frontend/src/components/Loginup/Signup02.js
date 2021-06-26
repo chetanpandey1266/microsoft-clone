@@ -14,7 +14,7 @@ function Signup02(props) {
                 console.log("Successfully posted !!")
             })
             .catch(err => console.log(err.message));
-        localStorage.removeItem("token");
+        localStorage.clear();
     }
     return (
         <div>

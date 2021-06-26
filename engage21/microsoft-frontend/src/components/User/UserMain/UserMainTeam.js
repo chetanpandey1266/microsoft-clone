@@ -7,7 +7,7 @@ function UserMainTeam(props) {
 
     const socket = props.socket;
 
-    const me = props.socket_id;
+    const me = localStorage.getItem('socket')
     const [myvideo, setMyvideo] = useState(true);
     const [stream, setStream] = useState();
     const [receivingCall, setReceivingCall] = useState(false);

@@ -11,7 +11,7 @@ function Login02() {
         axios.post("http://localhost:5000/signin02", pswrd)
             .then(() => console.log("Suceeded"))
             .catch(err => console.log(err));
-        localStorage.removeItem("token")
+        localStorage.clear();
     }
 
     return (

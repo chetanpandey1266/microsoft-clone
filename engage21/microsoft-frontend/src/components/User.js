@@ -33,6 +33,7 @@ function User() {
                 localStorage.setItem('token', values.token)
                 socket.on("me", (id) => {
                     setMe(id);
+                    localStorage.setItem('socket', id);
                     console.log(id)
                 })
                 socket.connect();
@@ -46,7 +47,6 @@ function User() {
         }else setLogged(true)
     }, [])
 
-    console.log(localStorage.getItem('token'), socket.id)
     
     const [active, setActive] = useState(0);
     if(logged){
@@ -54,7 +54,7 @@ function User() {
             <div>
                 <UserNavbar/>
                 <UserSidebar name={user} changeActive={setActive}/>
-                <UserMain socket_id={me} socket={socket} status={active}/>
+                <UserMain socket={socket} status={active}/>
             </div>
         )
     }
