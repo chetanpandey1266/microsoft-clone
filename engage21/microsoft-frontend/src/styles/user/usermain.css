@@ -21,3 +21,58 @@
     padding: 0 1rem;
     background-color: #F5F5F5;
 }
+
+
+
+/* team */
+
+.userName-main-team {
+    display: flex;
+    flex-direction: column;
+}
+
+.userName-main-team-videoContainer {
+    display: flex;
+    flex-direction: column;
+    background-color:#e0e0e0;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    height: 100%;
+}
+
+.userName-main-team button { 
+    width: 6rem;
+    height: 2.5rem;
+    background-color: #5458AF;
+    color: #fff;
+    border-radius: 10%;
+}
+
+.userName-main-team button:hover {
+    cursor: pointer;
+}
+
+.userName-main-team video {
+    margin: 1rem;
+    border: solid 2px black;
+    box-shadow: 5px 5px 10px;
+}
+
+.userName-main-team-input{    
+    margin: auto;
+    margin-bottom: 3rem;
+    height: 1.5rem;
+}
+
+.userName-main-team-input input {
+    width: 100%;
+}
+
+.userName-main-team-videos{
+    display: flex;
+    flex-direction: row;
+}
+
+.userName-main-team-answer {
+    margin: auto;
+}

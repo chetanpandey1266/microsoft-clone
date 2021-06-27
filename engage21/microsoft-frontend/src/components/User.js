@@ -20,7 +20,7 @@ function User() {
 
     let [logged, setLogged] = useState(false);
     let [user, setUser] = useState("");
-    // const [user, setUser] = useState({});
+
     useEffect(() => {
         if(!localStorage.getItem('token')){
             axios.get("http://localhost:5000/user", {
@@ -35,7 +35,8 @@ function User() {
                 })
                 socket.connect();
                 console.log(Date.now());
-                setLogged(true)
+                setLogged(true);
+                localStorage.setItem('name',e.data[0].name)
                 setUser(e.data[0].name);
             })
             .catch(err =>{ 
@@ -50,7 +51,7 @@ function User() {
         return (
             <div>
                 <UserNavbar/>
-                <UserSidebar name={user} changeActive={setActive}/>
+                <UserSidebar name={localStorage.getItem('name')} changeActive={setActive}/>
                 <UserMain socket={socket} status={active}/>
             </div>
         )

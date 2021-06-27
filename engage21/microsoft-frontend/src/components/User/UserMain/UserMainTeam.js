@@ -2,7 +2,6 @@ import React, {useEffect, useRef, useState} from 'react'
 import Peer from 'simple-peer';
 
 
-
 function UserMainTeam(props) {
 
     const socket = props.socket;
@@ -22,8 +21,10 @@ function UserMainTeam(props) {
     const userVideo = useRef();
     const connectionRef = useRef();
 
+    
+
     useEffect(() => {
-        navigator.mediaDevices.getUserMedia({video:myvideo, audio:true}).then((stream) => {
+        navigator.mediaDevices.getUserMedia({video:true, audio:true}).then((stream) => {
             setStream(stream);
             myVideo.current.srcObject = stream;
         })
@@ -40,7 +41,6 @@ function UserMainTeam(props) {
     const callUser = (id) => {
 
         console.log(id)
-        setReceivingCall(true)
         const peer = new Peer({
             initiator:true, 
             trickle:false, 
@@ -62,7 +62,6 @@ function UserMainTeam(props) {
         })
 
         socket.on("callAccepted", (signal) => {
-            console.log("callAccepted ", signal);
             setCallAccepted(true); 
             peer.signal(signal); 
         })
@@ -71,17 +70,14 @@ function UserMainTeam(props) {
     }
 
     const answerCall = () => {
-        setCallAccepted(false);
+        setCallAccepted(true); 
         const peer = new Peer({
             initiator: false,
             trickle: false,
             stream: stream 
         })
-        console.log("Yahan aaya kya", callerSignal)
-        
-        console.log("yahan")
+
         peer.on("signal", (data)=> {
-            console.log("peer.on signal", data);
             socket.emit("answerCall", {signal:data, to:caller});
         })
 
@@ -90,13 +86,12 @@ function UserMainTeam(props) {
         })
 
         peer.signal(callerSignal)
-
         connectionRef.current = peer;
     }
 
     const leaveCall = () => {
         setCallEnded(true);
-        connectionRef.current.destroy();
+        connectionRef.current = null;
     }
 
 
@@ -104,36 +99,43 @@ function UserMainTeam(props) {
         <div className="userName-main-team">
             <h1>This is Team Section</h1>
             <div className="userName-main-team-videoContainer">
-                <div className="userName-main-team-video">
-                    {stream && <video playsInline muted ref={myVideo} autoPlay style={{width:"300px"}} /> }
-                </div>
-                
-                <button onClick={myVideo.pause}>
-                    Video
-                </button>
-                
-                <h5> User Id: {me} </h5>
 
-                <div className="userName-main-team-video">
-                    {callAccepted && !callEnded ?
-                    <video playsInline ref={userVideo} autoPlay style={{width:"300px"}} />:null}
+                <div className="userName-main-team-input">
+                    <form>
+                        <input type="text" placeholder="userId" onChange={e => setIdToCall(e.target.value)}/>
+                    </form>
+                    <div>
+                        {callAccepted && !callEnded ? 
+                        <button onClick={leaveCall}>EndCall</button>:    
+                        <button onClick={() => callUser(idToCall)}>Call</button>}
+                    </div>
                 </div>
-                <form>
-                    <input type="text" placeholder="userId" onChange={e => setIdToCall(e.target.value)}/>
-                </form>
-                <div>
-                    {callAccepted && !callEnded ? 
-                    <button onClick={leaveCall}>EndCall</button>:
+                
+                <div className="userName-main-team-videos">
+
+                    <div className="userName-main-team-myvideo">
+                        {stream && <video playsInline muted ref={myVideo} autoPlay style={{width:"300px"}} /> }
+                        <h5>User ID: {me} </h5>
+                        <button onClick={() => {navigator.clipboard.writeText(me)}}>{`Copy ID`}</button>
+                    </div>
                     
-                    <button onClick={() => callUser(idToCall)}>Call</button>}
+
+                    <div className="userName-main-team-uservideo">
+                        {callAccepted && !callEnded ?
+                        <video playsInline ref={userVideo} autoPlay style={{width:"300px"}} />:null}
+                    </div>
+                
                 </div>
-                <div>
+
+                <div className="userName-main-team-answer">
                     {receivingCall && !callAccepted ?
+                    <div>
+                    <h1>{name} is calling</h1>
                     <button onClick={answerCall}>
                         Answer
                     </button>
+                    </div>
                     :null}
-                    
                 </div>
             </div>
         </div>
