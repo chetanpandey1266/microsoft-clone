@@ -48,7 +48,6 @@ function UserMainTeam(props) {
         })
         
         peer.on("signal", (data) => {
-            console.log("peer.on `signal`",  data);
             socket.emit("callUser", {
                 usedToCall: id,
                 signalData: data,
@@ -72,13 +71,15 @@ function UserMainTeam(props) {
     }
 
     const answerCall = () => {
-        setCallAccepted(true);
+        setCallAccepted(false);
         const peer = new Peer({
             initiator: false,
             trickle: false,
             stream: stream 
         })
-
+        console.log("Yahan aaya kya", callerSignal)
+        
+        console.log("yahan")
         peer.on("signal", (data)=> {
             console.log("peer.on signal", data);
             socket.emit("answerCall", {signal:data, to:caller});
@@ -89,6 +90,7 @@ function UserMainTeam(props) {
         })
 
         peer.signal(callerSignal)
+
         connectionRef.current = peer;
     }
 
@@ -106,12 +108,11 @@ function UserMainTeam(props) {
                     {stream && <video playsInline muted ref={myVideo} autoPlay style={{width:"300px"}} /> }
                 </div>
                 
-                <button onClick={() => setMyvideo(video => !video)}>
+                <button onClick={myVideo.pause}>
                     Video
                 </button>
                 
-                <h1>cvvwkvf</h1>
-                {me}
+                <h5> User Id: {me} </h5>
 
                 <div className="userName-main-team-video">
                     {callAccepted && !callEnded ?

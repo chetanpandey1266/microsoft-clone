@@ -37,20 +37,18 @@ const mongoose = require('mongoose')
 const User = require('./Schema/user.js')
 const config = require('./config/default.json');
 
-async function ConnectToDatabase() {
-    await mongoose.connect(`${config['connection_string']}`, {useNewUrlParser:true, useUnifiedTopology:true})
+
+mongoose.connect(`${config['connection_string']}`, {useNewUrlParser:true, useUnifiedTopology:true})
     .then(() => console.log("Connected to Database"))
     .catch(err => console.log(err))
-}
-
-ConnectToDatabase();
 
 // Socket connection 
 
 io.on("connection", socket => {
     console.log("Socket Connection established with socket ID:")
-    socket.emit("me", socket.id);
     console.log(socket.id)
+
+    socket.emit("me", socket.id);
     
     socket.on("disconnect", () => {
         socket.broadcast.emit("callEnded");
