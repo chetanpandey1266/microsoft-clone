@@ -17,9 +17,7 @@ function User() {
 
     const { search } = useLocation()
     const values = queryString.parse(search)
-    console.log(values.token)
 
-    const [me, setMe] = useState("");
     let [logged, setLogged] = useState(false);
     let [user, setUser] = useState("");
     // const [user, setUser] = useState({});
@@ -32,7 +30,6 @@ function User() {
                 console.log(e);
                 localStorage.setItem('token', values.token)
                 socket.on("me", (id) => {
-                    setMe(id);
                     localStorage.setItem('socket', id);
                     console.log(id)
                 })
@@ -45,7 +42,7 @@ function User() {
                 console.log(err);    
             })
         }else setLogged(true)
-    }, [])
+    }, [values.token])
 
     
     const [active, setActive] = useState(0);

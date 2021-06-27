@@ -7,7 +7,7 @@ function UserMainTeam(props) {
 
     const socket = props.socket;
 
-    const me = localStorage.getItem('socket')
+    const me = localStorage.getItem('socket');
     const [myvideo, setMyvideo] = useState(true);
     const [stream, setStream] = useState();
     const [receivingCall, setReceivingCall] = useState(false);
@@ -38,6 +38,9 @@ function UserMainTeam(props) {
 
     // here we will be creating peer   
     const callUser = (id) => {
+
+        console.log(id)
+        setReceivingCall(true)
         const peer = new Peer({
             initiator:true, 
             trickle:false, 
@@ -45,6 +48,7 @@ function UserMainTeam(props) {
         })
         
         peer.on("signal", (data) => {
+            console.log("peer.on `signal`",  data);
             socket.emit("callUser", {
                 usedToCall: id,
                 signalData: data,
@@ -53,11 +57,13 @@ function UserMainTeam(props) {
             })
         })
 
+        // Received a remote video stream, which can be displayed in a video tag
         peer.on("stream", (stream) => {
             userVideo.current.srcObject = stream;
         })
 
         socket.on("callAccepted", (signal) => {
+            console.log("callAccepted ", signal);
             setCallAccepted(true); 
             peer.signal(signal); 
         })
@@ -74,6 +80,7 @@ function UserMainTeam(props) {
         })
 
         peer.on("signal", (data)=> {
+            console.log("peer.on signal", data);
             socket.emit("answerCall", {signal:data, to:caller});
         })
 
@@ -90,15 +97,13 @@ function UserMainTeam(props) {
         connectionRef.current.destroy();
     }
 
-    console.log(me)
 
     return (
         <div className="userName-main-team">
             <h1>This is Team Section</h1>
-            <h1>{me}</h1>
             <div className="userName-main-team-videoContainer">
                 <div className="userName-main-team-video">
-                    {stream && <video playsInline muted ref={myVideo} autoplay="true" style={{width:"300px"}} /> }
+                    {stream && <video playsInline muted ref={myVideo} autoPlay style={{width:"300px"}} /> }
                 </div>
                 
                 <button onClick={() => setMyvideo(video => !video)}>
@@ -110,12 +115,15 @@ function UserMainTeam(props) {
 
                 <div className="userName-main-team-video">
                     {callAccepted && !callEnded ?
-                    <video playsInline ref={userVideo} autoplay style={{width:"300px"}} />:null}
+                    <video playsInline ref={userVideo} autoPlay style={{width:"300px"}} />:null}
                 </div>
-
+                <form>
+                    <input type="text" placeholder="userId" onChange={e => setIdToCall(e.target.value)}/>
+                </form>
                 <div>
                     {callAccepted && !callEnded ? 
                     <button onClick={leaveCall}>EndCall</button>:
+                    
                     <button onClick={() => callUser(idToCall)}>Call</button>}
                 </div>
                 <div>

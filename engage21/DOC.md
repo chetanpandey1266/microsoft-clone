@@ -30,7 +30,7 @@ The funtions of each routes:
 - `/signin01`: This accepts user email and checks whether the provided email is present in the database or not. If user is present then it continues to the next page `/signin02` else it returns `404` error.
 - `/signin02`: It takes in email from querystring and password from the form. This password is compared against the one in the database. If the password matches, a jwt token is generated (same as in `/signup02`) and passed on to the frontend as querystring.
 
-After signup/signin, the jwt passed onto the frontend as querystring is saved in the localStorage. On signup/signin only, the websocket connection is made and socket id is saved in the localStorage. All this happens  once the user is signin/signup. This ensures that the socket connection that is established once remains until the user is signed. As I have not designed signout button till now, so everytime a newuser signups, the localStorage is cleared inorder to save token of the new user.  
+After signup/signin, the jwt passed onto the frontend as querystring is saved in the localStorage. On signup/signin only, the websocket connection is made and socket id is saved in the localStorage. All this happens  once the user is signin/signup. This ensures that the socket connection that is established once remains until the user is signed. As I have not designed signout button till now, so everytime a newuser signups, the localStorage is cleared inorder to save token and socketid of the new user.  
 
 
 NOTE: There are some incomplete codes in `microsoft-frontend/src/components/User/UserMain/UserMainTeam.js` which I am working on. But they don't affect the app in anyway. 
