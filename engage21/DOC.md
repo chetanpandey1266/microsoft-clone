@@ -32,6 +32,8 @@ The funtions of each routes:
 
 After signup/signin, the jwt passed onto the frontend as querystring is saved in the localStorage. On signup/signin only, the websocket connection is made and socket id is saved in the localStorage. All this happens  once the user is signin/signup. This ensures that the socket connection that is established once remains until the user is signed. As I have not designed signout button till now, so everytime a newuser signups, the localStorage is cleared inorder to save token and socketid of the new user.  
 
-One major drawback of my app is that once I have made the call then making another call is not possible even if that call ends
+NEW CHANGE: Now the socket_id is changed everytime the user refreshes its page. This is done because if we keep a single socket id then when we end the call that socket connection will break and no more calls can be made after that. But if we keep connect everytime the page refreshes, a new connection is made using which call can be made by the user again and again. 
+
+Still there is a drawback that everytime after ending the call the page should be refreshed to make a new call. As `socket.connect()` is written within the `useEffect()`, so new connection is established once the page refreshes.
 
 NOTE: There are some incomplete codes in `microsoft-frontend/src/components/User/UserMain/UserMainTeam.js` which I am working on. But they don't affect the app in anyway. 

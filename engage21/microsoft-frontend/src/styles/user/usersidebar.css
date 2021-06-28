@@ -1,8 +1,10 @@
 .userSidebar-main {
+    position: absolute;
+
     display: flex;
     flex-direction: column;
     background-color: #DCDCDC;
-    position: absolute;
+    height: 100%;
     top:0px;
     bottom: 0px;
     width:6rem;

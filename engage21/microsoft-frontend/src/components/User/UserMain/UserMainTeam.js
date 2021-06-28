@@ -29,6 +29,12 @@ function UserMainTeam(props) {
             myVideo.current.srcObject = stream;
         })
 
+        socket.on("me", (id) => {
+            localStorage.setItem('socket', id);
+            console.log(id)
+        })
+        socket.connect("http://localhost:5000/user");
+
         socket.on("callUser", (data) => {
             setReceivingCall(true);
             setCaller(data.from); 
@@ -91,22 +97,20 @@ function UserMainTeam(props) {
 
     const leaveCall = () => {
         setCallEnded(true);
-        connectionRef.current = null;
+        connectionRef.current.destroy();
     }
 
 
     return (
         <div className="userName-main-team">
-            <h1>This is Team Section</h1>
+            {/* <h1>This is Team Section</h1> */}
             <div className="userName-main-team-videoContainer">
 
                 <div className="userName-main-team-input">
-                    <form>
-                        <input type="text" placeholder="userId" onChange={e => setIdToCall(e.target.value)}/>
-                    </form>
-                    <div>
+                    <input type="text" placeholder="userId" onChange={e => setIdToCall(e.target.value)}/>
+                    <div style={{margin:"auto"}} >
                         {callAccepted && !callEnded ? 
-                        <button onClick={leaveCall}>EndCall</button>:    
+                        <button style={{backgroundColor:"#D41F01"}} onClick={leaveCall}>EndCall</button>:    
                         <button onClick={() => callUser(idToCall)}>Call</button>}
                     </div>
                 </div>
@@ -119,19 +123,18 @@ function UserMainTeam(props) {
                         <button onClick={() => {navigator.clipboard.writeText(me)}}>{`Copy ID`}</button>
                     </div>
                     
-
+                    {callAccepted && !callEnded ?
                     <div className="userName-main-team-uservideo">
-                        {callAccepted && !callEnded ?
-                        <video playsInline ref={userVideo} autoPlay style={{width:"300px"}} />:null}
-                    </div>
+                        <video playsInline ref={userVideo} autoPlay style={{width:"300px"}} />
+                    </div>:null}
                 
                 </div>
 
                 <div className="userName-main-team-answer">
                     {receivingCall && !callAccepted ?
-                    <div>
-                    <h1>{name} is calling</h1>
-                    <button onClick={answerCall}>
+                    <div style={{display:"flex", flexDirection:"row", justifyContent:"space-around"}}>
+                    <h3>{name} is calling</h3>
+                    <button style={{backgroundColor:"#189636"}} onClick={answerCall}>
                         Answer
                     </button>
                     </div>
