@@ -89,4 +89,20 @@
 .userName-main-team-myvideo, .userName-main-team-uservideo {
     border: solid black 3px;
     padding: 2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.userName-main-team-myvideo-control, .userName-main-team-uservideo-control  {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}   
+
+.userName-main-team-myvideo-control button, .userName-main-team-uservideo-control button {
+    width: 5rem;
+    height: 2rem;
+    background-color: #5458AF;
+    color: #fff;
+    border-radius: 10%;
 }

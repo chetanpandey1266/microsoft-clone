@@ -119,6 +119,10 @@ function UserMainTeam(props) {
 
                     <div className="userName-main-team-myvideo">
                         {stream && <video playsInline muted ref={myVideo} autoPlay style={{width:"300px"}} /> }
+                        <div className="userName-main-team-myvideo-control">
+                        <button>Video</button>
+                        <button>Audio</button>
+                        </div>
                         <h5>User ID: {me} </h5>
                         <button onClick={() => {navigator.clipboard.writeText(me)}}>{`Copy ID`}</button>
                     </div>
@@ -126,6 +130,10 @@ function UserMainTeam(props) {
                     {callAccepted && !callEnded ?
                     <div className="userName-main-team-uservideo">
                         <video playsInline ref={userVideo} autoPlay style={{width:"300px"}} />
+                        <div className="userName-main-team-uservideo-control">
+                            <button>Video</button>
+                            <button>Audio</button>
+                        </div>
                     </div>:null}
                 
                 </div>
