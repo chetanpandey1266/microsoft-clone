@@ -7,12 +7,19 @@ const { v4: uuidv4 } = require("uuid");
 const cors = require("cors");
 const bcrypt = require("bcrypt");
 const user_route = require("./routes/user.js");
+const {
+    addUsers,
+    removeUsers,
+    getUsers,
+    getUsersInRoom,
+} = require("./helper/chat");
 
 const socket = require("socket.io");
 const io = socket(server, {
     cors: {
-        origin: ["http://localhost:3000", "https://localhost:3000/*"],
+        origin: ["http://localhost:3000", "http://localhost:3000/*"],
         methods: ["POST", "GET"],
+        credentials: true,
     },
     path: "/user",
 });
@@ -20,7 +27,7 @@ const io = socket(server, {
 
 app.use(
     cors({
-        origin: "http://localhost:3000",
+        origin: ["http://localhost:3000", "http://localhost:3000/*"],
         credentials: true,
     })
 );
@@ -50,14 +57,43 @@ const users = {};
 const socketToRoom = {};
 
 io.on("connection", (socket) => {
+    // events for chat
+
+    socket.on("joinRoom", ({ name, room }, callback) => {
+        const { error, user } = addUsers({ id: socket.id, name, room });
+
+        if (error) return callback(error);
+
+        socket.emit("message", {
+            user: "admin",
+            msg: `${user.name}, Welcome to the room ${user.room}`,
+        });
+        socket.broadcast.to(user.room).emit("message", {
+            user: "admin",
+            msg: `${user.name} has joined the room ${user.room}`,
+        });
+
+        socket.join(user.room);
+        callback();
+    });
+
+    socket.on("sendMsg", (message, callback) => {
+        const user = getUsers(socket.id);
+
+        io.to(user.room).emit("message", { user: user.name, msg: message });
+
+        callback();
+    });
+
+    // events for call
     console.log("Socket Connection established with socket ID:");
     console.log(socket.id);
 
     socket.emit("me", socket.id);
 
-    // socket.on("disconnect", () => {
-    //     socket.broadcast.emit("callEnded");
-    // });
+    socket.on("disconnect", () => {
+        socket.broadcast.emit("callEnded");
+    });
 
     socket.on("callUser", (data) => {
         // console.log("userToCall ", data);
@@ -72,6 +108,8 @@ io.on("connection", (socket) => {
         console.log("to ", data.to);
         io.to(data.to).emit("callAccepted", data.signal);
     });
+
+    // events for team
 
     socket.on("join room", (roomID) => {
         if (users[roomID]) {
@@ -105,6 +143,14 @@ io.on("connection", (socket) => {
     });
 
     socket.on("disconnect", () => {
+        const user = removeUsers(socket.id);
+        if (user) {
+            io.to(user.room).emit("message", {
+                user: "admin",
+                msg: `${user.name} has left`,
+            });
+        }
+
         const roomID = socketToRoom[socket.id];
         let room = users[roomID];
         if (room) {

@@ -109,8 +109,6 @@ function UserMainTeam(props) {
                         );
                         item.peer.signal(payload.signal);
                     });
-                    console.log("peers", peers);
-                    console.log(peersRef);
                 });
         }
     }, [roomID]);

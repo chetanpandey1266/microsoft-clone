@@ -20,28 +20,34 @@ function User() {
     let [user, setUser] = useState("");
 
     useEffect(() => {
-        if (!localStorage.getItem("token")) {
-            axios
-                .get("http://localhost:5000/user", {
-                    headers: { "x-auth-token": values.token },
-                })
-                .then((e) => {
-                    console.log(e);
-                    localStorage.setItem("token", values.token);
-                    socket.on("me", (id) => {
-                        localStorage.setItem("socket", id);
-                        console.log(id);
-                    });
-                    socket.connect("http://localhost:5000/user");
-                    console.log(Date.now());
-                    setLogged(true);
-                    localStorage.setItem("name", e.data[0].name);
-                    setUser(e.data[0].name);
-                })
-                .catch((err) => {
-                    console.log(err);
+        // if (!localStorage.getItem("token")) {
+        axios
+            .get("http://localhost:5000/user", {
+                headers: { "x-auth-token": values.token },
+            })
+            .then((e) => {
+                console.log(e);
+                localStorage.setItem("token", values.token);
+                socket.on("me", (id) => {
+                    localStorage.setItem("socket", id);
+                    console.log(id);
                 });
-        } else setLogged(true);
+                socket.connect("http://localhost:5000/user");
+                console.log(Date.now());
+                setLogged(true);
+                localStorage.setItem("name", e.data[0].name);
+                setUser(e.data[0].name);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+        socket.on("me", (id) => {
+            localStorage.setItem("socket", id);
+            console.log(id);
+        });
+        socket.connect("http://localhost:5000/user");
+        // }
+        // else setLogged(true);
     }, [values.token]);
 
     const [active, setActive] = useState(0);
