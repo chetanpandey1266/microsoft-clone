@@ -142,12 +142,12 @@ app.post("/signin02", async (req, res) => {
                 res.header("x-auth-token", token);
                 res.redirect(`/user?token=${token}`);
             } else {
-                res.status(401).send("Invalid Password");
+                res.status(401).send("Wrong Password. Try Again!");
             }
         })
         .catch((err) => {
             console.log(err.message);
-            res.status(404).send();
+            res.status(404).send("User not registered");
         });
 });
 

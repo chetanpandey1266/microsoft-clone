@@ -63,7 +63,7 @@ function UserMainTeam(props) {
     useEffect(() => {
         console.log(roomID);
         if (!(roomID === "") && val) {
-            socket.connect("https://localhost:500/user");
+            socket.connect("https://localhost:5000/user");
             console.log("one timer", roomID, val);
             setVal(false);
             navigator.mediaDevices

@@ -26,11 +26,11 @@ function UserMainCall(props) {
                 myVideo.current.srcObject = stream;
             });
 
-        // socket.on("me", (id) => {
-        //     localStorage.setItem("socket", id);
-        //     console.log(id);
-        // });
-        // socket.connect("http://localhost:5000/user");
+        socket.on("me", (id) => {
+            localStorage.setItem("socket", id);
+            console.log(id);
+        });
+        socket.connect("http://localhost:5000/user");
 
         socket.on("callUser", (data) => {
             console.log("calluser emitted");
@@ -68,9 +68,9 @@ function UserMainCall(props) {
         console.log("calling.....");
         console.log("userVideo", userVideo.current, callAccepted, callEnded);
         // Received a remote video stream, which can be displayed in a video tag
-        // peer.on("stream", (stream) => {
-        //     userVideo.current.srcObject = stream;
-        // });
+        peer.on("stream", (stream) => {
+            userVideo.current.srcObject = stream;
+        });
 
         socket.on("callAccepted", (signal) => {
             setCallAccepted(true);
