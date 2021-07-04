@@ -5,7 +5,6 @@ function UserMainCall(props) {
     const socket = props.socket;
 
     const me = localStorage.getItem("socket");
-    const [myvideo, setMyvideo] = useState(true);
     const [stream, setStream] = useState();
     const [receivingCall, setReceivingCall] = useState(false);
     const [caller, setCaller] = useState("");
@@ -34,7 +33,10 @@ function UserMainCall(props) {
         // socket.connect("http://localhost:5000/user");
 
         socket.on("callUser", (data) => {
+            console.log("calluser emitted");
             setReceivingCall(true);
+            setCallAccepted(false);
+            setCallEnded(true);
             setCaller(data.from);
             setName(data.name);
             setCallerSignal(data.signal);
@@ -43,9 +45,9 @@ function UserMainCall(props) {
 
     // here we will be creating peer
     const callUser = (id) => {
-        setCallEnded(false);
-        setReceivingCall(true);
-        setCallAccepted(false);
+        // setCallEnded(false);
+        // setReceivingCall(true);
+        // setCallAccepted(false);
         // console.log(id)
         const peer = new Peer({
             initiator: true,
@@ -63,10 +65,12 @@ function UserMainCall(props) {
             });
         });
 
+        console.log("calling.....");
+        console.log("userVideo", userVideo.current, callAccepted, callEnded);
         // Received a remote video stream, which can be displayed in a video tag
-        peer.on("stream", (stream) => {
-            userVideo.current.srcObject = stream;
-        });
+        // peer.on("stream", (stream) => {
+        //     userVideo.current.srcObject = stream;
+        // });
 
         socket.on("callAccepted", (signal) => {
             setCallAccepted(true);
@@ -78,6 +82,7 @@ function UserMainCall(props) {
 
     const answerCall = () => {
         setCallAccepted(true);
+        setCallEnded(false);
         const peer = new Peer({
             initiator: false,
             trickle: false,
@@ -98,14 +103,12 @@ function UserMainCall(props) {
 
     const leaveCall = () => {
         setCallEnded(true);
-        connectionRef.current = null;
+        connectionRef.current.destroy();
         socket.off("callAccepted");
-        socket.emit("callEnded");
     };
 
     return (
         <div className="userName-main-call">
-            {/* <h1>This is call Section</h1> */}
             <div className="userName-main-call-videoContainer">
                 <div className="userName-main-call-input">
                     <input
@@ -164,7 +167,6 @@ function UserMainCall(props) {
                                 <button>Video</button>
                                 <button>Audio</button>
                             </div>
-                            <h5>User ID: {idToCall} </h5>
                         </div>
                     ) : null}
                 </div>
