@@ -55,6 +55,8 @@ function UserMainTeam(props) {
     const [stream, setStream] = useState();
     const [peers, setPeers] = useState([]);
     const [roomID, setroomID] = useState("");
+    const [video, setVideo] = useState(true);
+    const [audio, setAudio] = useState(true);
     const [val, setVal] = useState(true);
     const peersRef = useRef([]);
 
@@ -147,7 +149,23 @@ function UserMainTeam(props) {
         return peer;
     }
 
-    // createRoom
+    const toggleVideo = () => {
+        if (video) {
+            userVideo.current.pause();
+        } else {
+            userVideo.current.play();
+        }
+        setVideo(!video);
+    };
+
+    const toggleAudio = () => {
+        if (audio) {
+            userVideo.current.muted = true;
+        } else {
+            userVideo.current.muted = false;
+        }
+        setAudio(!audio);
+    };
 
     return (
         <div className="userName-main-team">
@@ -167,12 +185,15 @@ function UserMainTeam(props) {
                             {stream && (
                                 <video
                                     playsInline
-                                    muted
                                     ref={userVideo}
                                     autoPlay
                                     style={{ width: "300px" }}
                                 />
                             )}
+                            <div>
+                                <button onClick={toggleVideo}>Video</button>
+                                <button onClick={toggleAudio}>Audio</button>
+                            </div>
                         </div>
                         {peers.map((peer, index) => {
                             return (

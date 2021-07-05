@@ -13,6 +13,8 @@ function UserMainCall(props) {
     const [idToCall, setIdToCall] = useState("");
     const [callEnded, setCallEnded] = useState(false);
     const [name, setName] = useState("");
+    const [video, setVideo] = useState(true);
+    const [audio, setAudio] = useState(true);
 
     const myVideo = useRef();
     const userVideo = useRef();
@@ -107,6 +109,25 @@ function UserMainCall(props) {
         socket.off("callAccepted");
     };
 
+    const toggleVideo = () => {
+        console.log(myVideo.current);
+        if (video) {
+            myVideo.current.pause();
+        } else {
+            myVideo.current.play();
+        }
+        setVideo(!video);
+    };
+
+    const toggleAudio = () => {
+        if (audio) {
+            myVideo.current.muted = true;
+        } else {
+            myVideo.current.muted = false;
+        }
+        setAudio(!audio);
+    };
+
     return (
         <div className="userName-main-call">
             <div className="userName-main-call-videoContainer">
@@ -137,15 +158,14 @@ function UserMainCall(props) {
                         {stream && (
                             <video
                                 playsInline
-                                muted
                                 ref={myVideo}
                                 autoPlay
                                 style={{ width: "300px" }}
                             />
                         )}
                         <div className="userName-main-call-myvideo-control">
-                            <button>Video</button>
-                            <button>Audio</button>
+                            <button onClick={toggleVideo}>Video</button>
+                            <button onClick={toggleAudio}>Audio</button>
                         </div>
                         <h5>User ID: {me} </h5>
                         <button

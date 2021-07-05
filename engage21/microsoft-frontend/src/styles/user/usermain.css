@@ -254,6 +254,8 @@
 }
 
 .userName-main-chat-form {
+    display: flex;
+    flex-direction: row;
     background-color: #5458af;
     border-top: 2px solid black;
     padding: 1rem 1.5rem;
@@ -262,14 +264,28 @@
 }
 
 .userName-main-chat-form input {
-    width: 88%;
+    width: 90%;
     height: 2rem;
 }
 
-.userName-main-chat-form button {
-    width: 10%;
-    height: 2.4rem;
-    font-size: 1rem;
+.userName-main-chat-form-btn {
+    width: 5%;
+    height: 2.3rem;
+    width: 4.8rem;
+    background-color: #d9e2f5;
+    border: none;
+    color: #fff;
+    border-radius: 5px;
+}
+
+.userName-main-chat-form-btn img {
+    display: flex;
+    margin: 0 auto;
+    justify-content: center;
+}
+
+.userName-main-chat-form-btn:hover {
+    cursor: pointer;
 }
 
 .userName-main-chat-messages {
@@ -319,11 +335,11 @@
 }
 
 .pl-10 {
-    padding-left: 10px;
+    padding-left: 5px;
 }
 
 .pr-10 {
-    padding-right: 10px;
+    padding-right: 5px;
 }
 
 .justifyStart {

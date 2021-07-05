@@ -122,12 +122,12 @@ function UserMainChat(props) {
                                     }
                                     autocomplete="off"
                                 />
-                                <button
-                                    className="userName-main-chat-btn"
+                                <div
+                                    className="userName-main-chat-form-btn"
                                     onClick={(e) => sendMessage(e)}
                                 >
-                                    Send
-                                </button>
+                                    <img src="https://img.icons8.com/fluent/30/000000/filled-sent.png" />{" "}
+                                </div>
                             </form>
                         </div>
                     </div>
