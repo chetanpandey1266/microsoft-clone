@@ -7,10 +7,9 @@ import UserMainTeam from "./UserMain/UserMainTeam";
 
 function UserMain(props) {
     const options = [
-        <UserMainChat socket={props.socket} />,
-        <UserMainCall socket={props.socket} />,
-        <UserMainTeam socket={props.socket} />,
         <UserMainProfile />,
+        <UserMainChat socket={props.socket} />,
+        <UserMainTeam socket={props.socket} />,
     ];
 
     return (
