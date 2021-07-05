@@ -19,7 +19,7 @@ function Video(props) {
             muted
             ref={ref}
             autoPlay
-            style={{ width: "300px" }}
+            style={{ width: "250px" }}
         />
     );
 }
@@ -187,17 +187,21 @@ function UserMainTeam(props) {
                                     playsInline
                                     ref={userVideo}
                                     autoPlay
-                                    style={{ width: "300px" }}
+                                    style={{ width: "250px" }}
                                 />
                             )}
-                            <div>
-                                <button onClick={toggleVideo}>Video</button>
-                                <button onClick={toggleAudio}>Audio</button>
+                            <div className="userName-main-team-myvideo-btn">
+                                <button onClick={toggleVideo}>
+                                    <img src="https://img.icons8.com/material-outlined/24/000000/video.png" />
+                                </button>
+                                <button onClick={toggleAudio}>
+                                    <img src="https://img.icons8.com/ios/24/000000/high-volume--v2.png" />
+                                </button>
                             </div>
                         </div>
                         {peers.map((peer, index) => {
                             return (
-                                <div className="userName-main-team-myvideo">
+                                <div className="userName-main-team-uservideo">
                                     <Video peer={peer} key={index} />
                                 </div>
                             );

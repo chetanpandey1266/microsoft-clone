@@ -8,12 +8,6 @@ function UserSidebar(props) {
     return (
         <div className="userSidebar-main">
             <h2>{props.name}</h2>
-            {/* <div
-                className="userSidebar-main-chats"
-                onClick={() => props.changeActive(0)}
-            >
-                <h5>Chats</h5>
-            </div> */}
             <div
                 className="userSidebar-main-profile"
                 onClick={() => props.changeActive(0)}
@@ -24,7 +18,7 @@ function UserSidebar(props) {
                 className="userSidebar-main-chats"
                 onClick={() => props.changeActive(1)}
             >
-                <h5>Call</h5>
+                <h5>Chat</h5>
             </div>
             <div
                 className="userSidebar-main-team"
