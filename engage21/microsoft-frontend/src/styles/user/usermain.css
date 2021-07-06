@@ -157,6 +157,15 @@
     height: 100%;
 }
 
+.userName-main-team-videoContainer input {
+    margin: 2rem;
+    width: 60%;
+    padding: 0.8rem 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
 .userName-main-team button {
     width: 6rem;
     height: 2.5rem;

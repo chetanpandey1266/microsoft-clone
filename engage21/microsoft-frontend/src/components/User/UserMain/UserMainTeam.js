@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import Peer from "simple-peer";
 import { v1 as uuid } from "uuid";
+import axios from "axios";
 
 function Video(props) {
     const ref = useRef();
@@ -64,6 +65,7 @@ function UserMainTeam(props) {
     const [video, setVideo] = useState(true);
     const [audio, setAudio] = useState(true);
     const [val, setVal] = useState(true);
+    const [email, setEmail] = useState("");
     const peersRef = useRef([]);
 
     const userVideo = useRef();
@@ -194,6 +196,19 @@ function UserMainTeam(props) {
         setAudio(!audio);
     };
 
+    const sendEmail = () => {
+        axios
+            .post("http://localhost:5000/email", {
+                senderEmail: localStorage.getItem("email"),
+                email: email,
+                roomID: roomID,
+            })
+            .then((res) => {
+                console.log(res);
+            })
+            .catch((err) => console.log(err.message));
+    };
+
     return (
         <div className="userName-main-team">
             {roomID === "" ? (
@@ -207,7 +222,11 @@ function UserMainTeam(props) {
                             navigator.clipboard.writeText(roomID);
                         }}
                     >{`Copy RoomID`}</button>
-
+                    <input
+                        placeholder="email to send invite "
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
+                    <button onClick={() => sendEmail()}>Send Invite</button>
                     <div className="userName-main-team-videos">
                         <div className="userName-main-team-myvideo">
                             {stream && (

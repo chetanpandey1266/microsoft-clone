@@ -42,6 +42,7 @@ app.use("/user", user_route);
 const mongoose = require("mongoose");
 const User = require("./Schema/user.js");
 const config = require("./config/default.json");
+const { text } = require("express");
 
 mongoose
     .connect(`${config["connection_string"]}`, {
@@ -253,8 +254,31 @@ const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
         user: config["email"],
-        password: config["password"],
+        pass: config["password"],
     },
+});
+
+// email
+
+app.post("/email", (req, res) => {
+    const email = req.body.email;
+    const txt = `${req.body.senderEmail} invites to you to microsoftclone meet. Join using following room ID: ${req.body.roomID}`;
+    const mail = {
+        from: config["email"],
+        to: email,
+        subject: "Invite Link for the meet",
+        text: txt,
+    };
+    transporter.sendMail(mail, (err, data) => {
+        // console.log(err, data);
+        if (err) {
+            console.log("error occured. Mail not sent");
+            res.status(400).send(err.message);
+        } else {
+            console.log("Email sent!!!", data);
+            res.status(200).send("Successful");
+        }
+    });
 });
 
 // Start server
