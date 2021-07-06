@@ -1,6 +1,0 @@
-{
-    "connection_string": "mongodb+srv://dbmicrosoft:chetan06@microsoft-clone.qrhpw.mongodb.net/microsoft-clone?retryWrites=true&w=majority&ssl=true",
-    "jwtPrivateKey": "ms_jwtPrivateKey",
-    "email": "chetanmicrosoftclone@gmail.com",
-    "password": "chetanmicrosoft#"
-}
