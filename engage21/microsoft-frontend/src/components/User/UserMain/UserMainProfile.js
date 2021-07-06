@@ -15,7 +15,6 @@ function UserMainProfile(props) {
     const email = localStorage.getItem("email");
 
     function userUpdate() {
-        console.log("Working");
         // debugger;
         axios
             .put("http://localhost:5000/profile", {

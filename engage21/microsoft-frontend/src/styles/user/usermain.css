@@ -155,6 +155,7 @@
     padding: 2rem;
     margin-bottom: 2rem;
     height: 100%;
+    overflow: scroll;
 }
 
 .userName-main-team-videoContainer input {
@@ -202,7 +203,6 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-around;
-    overflow: auto;
 }
 
 .userName-main-team-answer {

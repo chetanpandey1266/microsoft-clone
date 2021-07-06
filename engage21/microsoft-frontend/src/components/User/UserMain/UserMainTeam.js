@@ -58,7 +58,6 @@ function Room(props) {
 function UserMainTeam(props) {
     const socket = props.socket;
 
-    const me = localStorage.getItem("socket");
     const [stream, setStream] = useState();
     const [peers, setPeers] = useState([]);
     const [roomID, setroomID] = useState("");
@@ -196,6 +195,8 @@ function UserMainTeam(props) {
         setAudio(!audio);
     };
 
+    const endCall = () => {};
+
     const sendEmail = () => {
         axios
             .post("http://localhost:5000/email", {
@@ -243,6 +244,12 @@ function UserMainTeam(props) {
                                 </button>
                                 <button onClick={toggleAudio}>
                                     <img src="https://img.icons8.com/ios/24/000000/high-volume--v2.png" />
+                                </button>
+                                <button
+                                    onClick={() => window.location.reload()}
+                                    style={{ backgroundColor: "#E44B35" }}
+                                >
+                                    <img src="https://img.icons8.com/ios/24/000000/end-call.png" />
                                 </button>
                             </div>
                         </div>
