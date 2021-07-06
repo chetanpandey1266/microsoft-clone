@@ -18,6 +18,7 @@ function User() {
 
     let [logged, setLogged] = useState(false);
     let [user, setUser] = useState("");
+    const [email, setEmail] = useState("");
 
     useEffect(() => {
         // if (!localStorage.getItem("token")) {
@@ -32,11 +33,14 @@ function User() {
                     localStorage.setItem("socket", id);
                     console.log(id);
                 });
+                const Msg = {};
+                localStorage.setItem("user_msgs", JSON.stringify(Msg));
                 socket.connect("http://localhost:5000/user");
                 console.log(Date.now());
                 setLogged(true);
+                console.log(e.data[0]);
                 localStorage.setItem("name", e.data[0].name);
-                setUser(e.data[0].name);
+                localStorage.setItem("email", e.data[0].email);
             })
             .catch((err) => {
                 console.log(err);
@@ -54,12 +58,12 @@ function User() {
     if (logged) {
         return (
             <div>
-                <UserNavbar />
+                <UserNavbar socket={socket} />
                 <UserSidebar
                     name={localStorage.getItem("name")}
                     changeActive={setActive}
                 />
-                <UserMain socket={socket} status={active} />
+                <UserMain socket={socket} status={active} email={email} />
             </div>
         );
     }

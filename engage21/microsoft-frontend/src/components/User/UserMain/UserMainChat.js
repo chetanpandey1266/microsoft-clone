@@ -47,8 +47,8 @@ const Message = ({ message: { user, msg }, name }) => {
 
 function UserMainChat(props) {
     const socket = props.socket;
-    console.log(socket);
 
+    const Msg = JSON.parse(localStorage.getItem("user_msgs"));
     const [room, setRoom] = useState("");
     const [dummyID, setdummyID] = useState("");
     const [message, setMessage] = useState("");
@@ -58,7 +58,13 @@ function UserMainChat(props) {
     const name = localStorage.getItem("name");
 
     useEffect(() => {
-        if (room !== "") socket.emit("joinRoom", { name, room }, () => {});
+        if (room !== "") {
+            socket.emit("joinRoom", { name, room }, () => {});
+            if (Msg[room] !== undefined) {
+                console.log(Msg[room]);
+                setMessages(Msg[room]);
+            }
+        }
     }, [room]);
 
     const joinRoom = (id) => {
@@ -67,8 +73,15 @@ function UserMainChat(props) {
 
     useEffect(() => {
         socket.on("message", (message) => {
-            setMessages([...messages, message]);
+            console.log(message.user, Msg[room]);
+            if (message.user === "admin" && Msg[room].length !== 0) {
+                setMessages(messages);
+            } else {
+                setMessages([...messages, message]);
+            }
         });
+        Msg[room] = messages;
+        localStorage.setItem("user_msgs", JSON.stringify(Msg));
     }, [messages]);
 
     const sendMessage = (event) => {
@@ -80,8 +93,6 @@ function UserMainChat(props) {
             });
         }
     };
-
-    console.log(messages);
 
     return (
         <div className="userName-main-chat">

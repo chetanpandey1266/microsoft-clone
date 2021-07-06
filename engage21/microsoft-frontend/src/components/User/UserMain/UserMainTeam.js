@@ -8,7 +8,6 @@ function Video(props) {
 
     useEffect(() => {
         props.peer.on("stream", (stream) => {
-            console.log(stream);
             ref.current.srcObject = stream;
         });
     }, []);
@@ -41,9 +40,16 @@ function Room(props) {
                     placeholder="roomId"
                     onChange={(e) => setdummyID(e.target.value)}
                 />
-                <button onClick={() => setroomID(dummyID)}>Join Room</button>
+                <button
+                    style={{ width: "10rem" }}
+                    onClick={() => setroomID(dummyID)}
+                >
+                    Join Room
+                </button>
             </div>
-            <button onClick={create}>Create Room</button>
+            <button style={{ width: "10rem" }} onClick={create}>
+                Create Room
+            </button>
         </div>
     );
 }
@@ -63,7 +69,6 @@ function UserMainTeam(props) {
     const userVideo = useRef();
 
     useEffect(() => {
-        console.log(roomID);
         if (!(roomID === "") && val) {
             socket.connect("https://localhost:5000/user");
             console.log("one timer", roomID, val);
@@ -86,7 +91,10 @@ function UserMainTeam(props) {
                                 peerID: userId,
                                 peer,
                             });
-                            Peers.push(peer);
+                            Peers.push({
+                                peerID: userId,
+                                peer,
+                            });
                         });
                         setPeers(Peers);
                     });
@@ -102,7 +110,12 @@ function UserMainTeam(props) {
                             peer,
                         });
 
-                        setPeers((users) => [...users, peer]);
+                        const peerObj = {
+                            peer,
+                            peerID: peer.callerID,
+                        };
+
+                        setPeers((users) => [...users, peerObj]);
                     });
 
                     socket.on("receiving returned signal", (payload) => {
@@ -110,6 +123,20 @@ function UserMainTeam(props) {
                             (p) => p.peerID === payload.id
                         );
                         item.peer.signal(payload.signal);
+                    });
+
+                    socket.on("user left", (id) => {
+                        const peerObj = peersRef.current.find(
+                            (p) => p.peerID === id
+                        );
+                        if (peerObj) {
+                            peerObj.peer.destroy();
+                        }
+                        const peers = peersRef.current.filter(
+                            (p) => p.peerID !== id
+                        );
+                        peersRef.current = peers;
+                        setPeers(peers);
                     });
                 });
         }
@@ -175,6 +202,7 @@ function UserMainTeam(props) {
                 <div className="userName-main-team-videoContainer">
                     <h2>RoomID : {roomID}</h2>
                     <button
+                        style={{ width: "8rem" }}
                         onClick={() => {
                             navigator.clipboard.writeText(roomID);
                         }}
@@ -199,10 +227,10 @@ function UserMainTeam(props) {
                                 </button>
                             </div>
                         </div>
-                        {peers.map((peer, index) => {
+                        {peers.map((peer) => {
                             return (
                                 <div className="userName-main-team-uservideo">
-                                    <Video peer={peer} key={index} />
+                                    <Video peer={peer.peer} key={peer.peerID} />
                                 </div>
                             );
                         })}

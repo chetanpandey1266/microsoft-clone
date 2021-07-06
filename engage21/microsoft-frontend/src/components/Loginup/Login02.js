@@ -15,7 +15,6 @@ function Login02() {
                 setErr("error hai");
                 console.log(err);
             });
-        localStorage.clear();
     };
 
     return (

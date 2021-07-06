@@ -26,6 +26,40 @@
     background-color: #f5f5f5;
 }
 
+/* profile */
+.userName-main-profile-form {
+    background-color: #e0e0e0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding-top: 5rem;
+    overflow: hidden;
+    padding-bottom: 2rem;
+}
+
+.userName-main-profile-form input {
+    margin: 2rem;
+    width: 60%;
+    padding: 0.8rem 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.userName-main-profile-form button {
+    margin: 0 auto;
+    height: 3rem;
+    font-size: 1.4rem;
+    font-weight: 600;
+    background-color: #5458af;
+    color: #fff;
+    width: 10rem;
+}
+
+.userName-main-profile-form button:hover {
+    cursor: pointer;
+}
+
 /* call */
 
 .userName-main-call {

@@ -2,7 +2,8 @@ const express = require("express");
 const app = express();
 const http = require("http");
 const server = http.createServer(app);
-const { v4: uuidv4 } = require("uuid");
+// const { v4: uuidv4 } = require("uuid");
+const nodemailer = require("nodemailer");
 
 const cors = require("cors");
 const bcrypt = require("bcrypt");
@@ -46,6 +47,7 @@ mongoose
     .connect(`${config["connection_string"]}`, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
+        useFindAndModify: false,
     })
     .then(() => console.log("Connected to Database"))
     .catch((err) => console.log(err));
@@ -157,6 +159,7 @@ io.on("connection", (socket) => {
             room = room.filter((id) => id !== socket.id);
             users[roomID] = room;
         }
+        socket.broadcast.emit("user left", socket.id);
     });
 });
 
@@ -228,6 +231,30 @@ app.post("/signup02", async (req, res) => {
     const token = result[0].generateAuthToken();
     res.header("x-auth-token", token);
     res.redirect(`/user?token=${token}`);
+});
+
+// profile
+
+app.put("/profile", async (req, res) => {
+    const prev_email = req.body.email;
+    const next_email = req.body.userEmail;
+    const name = req.body.userName;
+    console.log(name, prev_email, next_email);
+    const update = { email: next_email, name: name };
+    User.updateOne({ email: prev_email }, update)
+        .then((doc) => {
+            if (!doc) return res.status(401).end();
+            else res.status(200).json(doc);
+        })
+        .catch((err) => console.log(err));
+});
+
+const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+        user: config["email"],
+        password: config["password"],
+    },
 });
 
 // Start server
