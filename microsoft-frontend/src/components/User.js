@@ -9,7 +9,7 @@ import io from "socket.io-client";
 
 const socket = io.connect("http://localhost:5000/", {
     autoConnect: false,
-    path: "/user",
+    path: "/userinfo",
 });
 
 function User() {
@@ -20,11 +20,13 @@ function User() {
     let [user, setUser] = useState("");
     const [email, setEmail] = useState("");
 
+    console.log(values);
+
     useEffect(() => {
         // if (!localStorage.getItem("token")) {
         axios
-            .get("http://localhost:5000/user", {
-                headers: { "x-auth-token": values.token },
+            .get("http://localhost:5000/api/user", {
+                params: { "x-auth-token": values.token },
             })
             .then((e) => {
                 console.log(e);
@@ -37,7 +39,7 @@ function User() {
                 if (!localStorage.getItem("user_msgs")) {
                     localStorage.setItem("user_msgs", JSON.stringify(Msg));
                 }
-                socket.connect("http://localhost:5000/user");
+                socket.connect("http://localhost:5000/api/user");
                 console.log(Date.now());
                 setLogged(true);
                 console.log(e.data[0]);
@@ -51,7 +53,7 @@ function User() {
             localStorage.setItem("socket", id);
             console.log(id);
         });
-        socket.connect("http://localhost:5000/user");
+        socket.connect("http://localhost:5000/api/user");
         // }
         // else setLogged(true);
     }, [values.token]);

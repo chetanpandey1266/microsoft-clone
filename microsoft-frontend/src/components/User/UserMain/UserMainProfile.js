@@ -17,7 +17,7 @@ function UserMainProfile(props) {
     function userUpdate() {
         // debugger;
         axios
-            .put("http://localhost:5000/profile", {
+            .put("http://localhost:5000/api/profile", {
                 email,
                 userName,
                 userEmail,

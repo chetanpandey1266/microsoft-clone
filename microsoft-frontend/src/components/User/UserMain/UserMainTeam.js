@@ -71,7 +71,7 @@ function UserMainTeam(props) {
 
     useEffect(() => {
         if (!(roomID === "") && val) {
-            socket.connect("https://localhost:5000/user");
+            socket.connect("https://localhost:5000/userinfo");
             console.log("one timer", roomID, val);
             setVal(false);
             navigator.mediaDevices
@@ -199,7 +199,7 @@ function UserMainTeam(props) {
 
     const sendEmail = () => {
         axios
-            .post("http://localhost:5000/email", {
+            .post("http://localhost:5000/api/email", {
                 senderEmail: localStorage.getItem("email"),
                 email: email,
                 roomID: roomID,

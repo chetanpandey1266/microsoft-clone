@@ -24,7 +24,7 @@ A simple microsoft teams clone, which allow users to connect over video calls an
 
 ### Documentation
 
-To read about how I planned and implemented the project, refer [this](./DOC.md)
+To read about how I planned and implemented the project, refer [this](./DOC/DOC.md)
 
 ### How to Use
 

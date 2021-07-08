@@ -6,14 +6,16 @@ import { Redirect } from "react-router-dom";
 
 function Login01() {
     let [email, setEmail] = useState({});
+
     const handleSubmit = () => {
         axios
-            .post("http://localhost:5000/", email)
+            .post("http://localhost:5000/api/signin01", { email })
             .then(() => {
                 console.log("Submitted Successfully");
             })
             .catch((err) => {
-                console.log(err.message);
+                console.log(email);
+                console.log(err);
             });
     };
 
@@ -30,9 +32,10 @@ function Login01() {
                         <h2>Sign in</h2>
                         <form
                             method="POST"
-                            onSubmit={() => handleSubmit()}
+                            // onSubmit={() => handleSubmit()}
                             id="login01"
                             className="login-main-email"
+                            action="/api/signin01"
                         >
                             <input
                                 placeholder="Email"

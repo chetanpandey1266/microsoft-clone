@@ -1,7 +1,8 @@
-import React from 'react'
-import Navbar from './MainPage/Navbar'
-import LandingPage from './MainPage/LandingPage'
-import Footer from './MainPage/Footer'
+import React from "react";
+import Navbar from "./MainPage/Navbar";
+import LandingPage from "./MainPage/LandingPage";
+import Footer from "./MainPage/Footer";
+import axios from "axios";
 
 export default function MainPage() {
     return (
@@ -10,5 +11,5 @@ export default function MainPage() {
             <LandingPage />
             <Footer />
         </div>
-    )
+    );
 }
