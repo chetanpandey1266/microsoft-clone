@@ -34,7 +34,9 @@ function User() {
                     console.log(id);
                 });
                 const Msg = {};
-                localStorage.setItem("user_msgs", JSON.stringify(Msg));
+                if (!localStorage.getItem("user_msgs")) {
+                    localStorage.setItem("user_msgs", JSON.stringify(Msg));
+                }
                 socket.connect("http://localhost:5000/user");
                 console.log(Date.now());
                 setLogged(true);
