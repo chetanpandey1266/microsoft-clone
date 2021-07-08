@@ -34,13 +34,13 @@ Clone this repository
 git clone https://github.com/chetanpandey1266/microsoft-clone.git
 ```
 
-Move to the repository's folder
+Move to the repository's root folder
 
 ```shell
 cd microsoft-clone
 ```
 
-#### For running the react app
+##### For running the react app
 
 ```shell
 cd microsoft-frontend
@@ -48,9 +48,9 @@ npm install
 npm start
 ```
 
-#### For running the express app
+##### For running the express app
 
-Open the `ms-clone-backend/config/defualt.json` file and fill in all the configuration details
+Open the `config/defualt.json` file and fill in all the configuration details
 
 Note: Switch on [Less Secure App](https://accounts.google.com/signin/v2/challenge/pwd?continue=https%3A%2F%2Fmyaccount.google.com%2Flesssecureapps&service=accountsettings&osid=1&rart=ANgoxcdbq_k-DdEfD8NowR_H2bUXewvuFAFrbZQUj4FzcLbco89A9pfFUk0Hq0qJqSxCxKxFhodvlg2a-PbEbGOYtS-fNe8WYw&TL=AM3QAYZUHLr8-GRHwbAzraWjtYwa7Yk2xGUDGE-hB_RDq4UWvFPgc9LoOKrByFWZ&flowName=GlifWebSignIn&cid=1&flowEntry=ServiceLogin) for the above email.
 
