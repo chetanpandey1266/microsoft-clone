@@ -28,19 +28,21 @@ function UserMainProfile(props) {
                 console.log(e);
             })
             .catch((err) => {
-                console.log(err.message);
+                console.log(err);
             });
     }
 
     return (
         <div className="userName-main-profile">
             <div className="userName-main-profile-form">
+                <h3>UserName</h3>
                 <input
                     type="text"
                     value={userName}
                     onChange={(e) => setUserName(e.target.value)}
                     spellCheck="false"
                 />
+                <h3>UserEmail</h3>
                 <input
                     type="text"
                     value={userEmail}

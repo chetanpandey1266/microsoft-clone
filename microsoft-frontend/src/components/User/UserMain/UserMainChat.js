@@ -100,11 +100,10 @@ function UserMainChat(props) {
                 <div className="userName-main-chat-roomForm">
                     <input
                         type="text"
-                        placeholder="roomName"
+                        placeholder="Enter the Room Name"
                         onChange={(e) => setdummyID(e.target.value)}
                     />
                     <button onClick={() => joinRoom(dummyID)}>Join Room</button>
-                    {/* <button>Create Room</button> */}
                 </div>
             ) : (
                 <div className="userName-main-chat-room">

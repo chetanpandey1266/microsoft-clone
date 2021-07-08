@@ -55,6 +55,7 @@
     background-color: #4950ca;
     color: #fff;
     box-shadow: none;
+    border-radius: 2rem;
 }
 
 .userNavbar-main-logout:hover {

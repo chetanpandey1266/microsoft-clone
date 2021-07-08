@@ -7,7 +7,7 @@ import "../../styles/user/usersidebar.css";
 function UserSidebar(props) {
     return (
         <div className="userSidebar-main">
-            <h2>{localStorage.getItem("name")}</h2>
+            <h2>{props.name}</h2>
             <div
                 className="userSidebar-main-profile"
                 onClick={() => props.changeActive(0)}

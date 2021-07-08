@@ -34,23 +34,23 @@ function Room(props) {
     }
 
     return (
-        <div>
-            <div className="userName-main-call-input">
-                <input
-                    type="text"
-                    placeholder="roomId"
-                    onChange={(e) => setdummyID(e.target.value)}
-                />
+        <div className="userName-main-call-input">
+            <input
+                type="text"
+                placeholder="Enter your Room ID"
+                onChange={(e) => setdummyID(e.target.value)}
+            />
+            <div>
                 <button
                     style={{ width: "10rem" }}
                     onClick={() => setroomID(dummyID)}
                 >
                     Join Room
                 </button>
+                <button style={{ width: "10rem" }} onClick={create}>
+                    Create Room
+                </button>
             </div>
-            <button style={{ width: "10rem" }} onClick={create}>
-                Create Room
-            </button>
         </div>
     );
 }
