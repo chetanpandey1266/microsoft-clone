@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import axios from "../../../Axios";
 
 function UserMainProfile(props) {
     const [userName, setUserName] = useState("");
@@ -17,7 +17,7 @@ function UserMainProfile(props) {
     function userUpdate() {
         // debugger;
         axios
-            .put("http://localhost:5000/api/profile", {
+            .put("/profile", {
                 email,
                 userName,
                 userEmail,

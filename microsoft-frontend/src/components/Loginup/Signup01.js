@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "../../styles/signup.css";
 import logo from "../../images/navbar/navbar_icon.png";
+import axios from "axios";
 
 function Signup01() {
     let [data, setData] = useState({ email: "", name: "" });
@@ -13,6 +14,13 @@ function Signup01() {
         }
     };
 
+    const handleSubmit = () => {
+        axios
+            .post("/signup01", data)
+            .then(() => console.log("posted successfully"))
+            .catch((err) => console.log(err));
+    };
+
     return (
         <div className="signup">
             <div className="signup-main">
@@ -22,8 +30,7 @@ function Signup01() {
                     id="signup01_form"
                     className="signup-main-email"
                     method="POST"
-                    // onSubmit={() => handleSubmit()}
-                    action="/api/signup01"
+                    onSubmit={() => handleSubmit()}
                 >
                     <input
                         type="text"

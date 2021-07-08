@@ -10,19 +10,17 @@ if (!config["jwtPrivateKey"]) {
     process.exit(1);
 }
 
-router.get("/", async (req, res, next) => {
-    console.log(req.query);
-    console.log("JWTtoken :", req.headers["x-auth-token"]);
-    const token = req.headers["x-auth-token"];
+router.post("/", async (req, res) => {
+    const token = req.body.token;
     if (!token) res.status(401).send("Access Denied. No token Provided");
     try {
         const decoded = jwt.verify(token, config["jwtPrivateKey"]);
         const user = await User.find({ _id: decoded._id });
+        console.log(user);
         res.status(200).send(user);
     } catch {
         res.status(400).send("Invalid token");
     }
-    next();
 });
 
 module.exports = router;

@@ -2,14 +2,14 @@ import React, { useState, useEffect } from "react";
 import UserNavbar from "./User/UserNavbar.js";
 import UserSidebar from "./User/UserSidebar.js";
 import UserMain from "./User/UserMain.js";
-import axios from "axios";
+import axios from "../Axios";
 import queryString from "query-string";
 import { useLocation } from "react-router-dom";
 import io from "socket.io-client";
 
-const socket = io.connect("http://localhost:5000/", {
+const socket = io.connect(process.env.BASE_URL, {
     autoConnect: false,
-    path: "/userinfo",
+    path: "/user",
 });
 
 function User() {
@@ -20,16 +20,11 @@ function User() {
     let [user, setUser] = useState("");
     const [email, setEmail] = useState("");
 
-    console.log(values);
-
     useEffect(() => {
-        // if (!localStorage.getItem("token")) {
         axios
-            .get("http://localhost:5000/api/user", {
-                params: { "x-auth-token": values.token },
-            })
+            .post("/user", { token: values.token })
             .then((e) => {
-                console.log(e);
+                console.log(e.data);
                 localStorage.setItem("token", values.token);
                 socket.on("me", (id) => {
                     localStorage.setItem("socket", id);
@@ -39,7 +34,7 @@ function User() {
                 if (!localStorage.getItem("user_msgs")) {
                     localStorage.setItem("user_msgs", JSON.stringify(Msg));
                 }
-                socket.connect("http://localhost:5000/api/user");
+                socket.connect("/user");
                 console.log(Date.now());
                 setLogged(true);
                 console.log(e.data[0]);
@@ -53,7 +48,7 @@ function User() {
             localStorage.setItem("socket", id);
             console.log(id);
         });
-        socket.connect("http://localhost:5000/api/user");
+        socket.connect("/user");
         // }
         // else setLogged(true);
     }, [values.token]);

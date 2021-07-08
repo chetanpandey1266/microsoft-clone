@@ -1,15 +1,21 @@
 import React, { useState } from "react";
 import "../../styles/login.css";
 import logo from "../../images/navbar/navbar_icon.png";
-import axios from "axios";
-import queryString from "query-string";
-import { useLocation } from "react-router-dom";
+import axios from "../../Axios";
 
 function Login02() {
     const [pswrd, setPswrd] = useState();
-    const { search } = useLocation();
-    const qs = queryString.parse(search);
-    console.log(qs);
+    const [err, setErr] = useState("");
+
+    const handleSubmit = () => {
+        axios
+            .post("/signin02", pswrd)
+            .then(() => console.log("Suceeded"))
+            .catch((err) => {
+                setErr("error hai");
+                console.log(err);
+            });
+    };
 
     return (
         <div>
@@ -19,10 +25,9 @@ function Login02() {
                     <h2>Sign in</h2>
                     <form
                         method="POST"
-                        // onSubmit={() => handleSubmit()}
+                        onSubmit={() => handleSubmit()}
                         id="login02"
                         className="login-main-email"
-                        action={`/api/signin02?email=${qs.email}`}
                     >
                         <input
                             type="password"
@@ -33,6 +38,7 @@ function Login02() {
                     </form>
                     <p>
                         <span>Forgot Password!</span>
+                        {err}
                     </p>
                     <div className="login-main-button">
                         <button form="login02" type="submit">

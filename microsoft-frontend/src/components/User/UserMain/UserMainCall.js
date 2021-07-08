@@ -32,7 +32,7 @@ function UserMainCall(props) {
             localStorage.setItem("socket", id);
             console.log(id);
         });
-        socket.connect("http://localhost:5000/userinfo");
+        socket.connect("http://localhost:5000/user");
 
         socket.on("callUser", (data) => {
             console.log("calluser emitted");

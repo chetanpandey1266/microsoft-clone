@@ -1,15 +1,20 @@
 import React, { useState } from "react";
 import "../../styles/signup.css";
 import logo from "../../images/navbar/navbar_icon.png";
-import queryString from "query-string";
-import { useLocation } from "react-router-dom";
+import axios from "axios";
 
 function Signup02(props) {
     let [password, setPassword] = useState();
-
-    const { search } = useLocation();
-    const qs = queryString.parse(search);
-
+    const handleSubmit = () => {
+        axios
+            .post("/signup02", password)
+            .then((e) => {
+                console.log(e);
+                console.log("Successfully posted !!");
+            })
+            .catch((err) => console.log(err.message));
+        localStorage.clear();
+    };
     return (
         <div>
             <div className="signup">
@@ -20,8 +25,7 @@ function Signup02(props) {
                         id="signup02"
                         className="signup-main-email"
                         method="post"
-                        // onSubmit={() => handleSubmit()}
-                        action={`/api/signup02?name=${qs.name}&email=${qs.email}`}
+                        onSubmit={() => handleSubmit()}
                     >
                         <input
                             type="password"
