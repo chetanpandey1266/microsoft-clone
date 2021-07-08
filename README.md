@@ -14,9 +14,9 @@
 
 ## Index
 
-1. Introduction
-2. Documentation
-3. How to use
+1. [Introduction](#Introduction)
+2. [Documentation](#Documentation)
+3. [How to use](#How_to_Use)
 
 ### Introduction
 
