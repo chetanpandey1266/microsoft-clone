@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../../styles/login.css";
 import logo from "../../images/navbar/navbar_icon.png";
 import axios from "axios";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 
 function Login01() {
     let [email, setEmail] = useState({});
@@ -42,9 +42,11 @@ function Login01() {
                                 }}
                             />
                         </form>
-                        <p>
-                            No account? <span>Create One!</span>
-                        </p>
+                        <Link to="/signup01" style={{ textDecoration: "none" }}>
+                            <p>
+                                No account? <span>Create One!</span>
+                            </p>
+                        </Link>
                         <div className="login-main-button">
                             <button form="login01" type="submit">
                                 Next

@@ -1,9 +1,9 @@
 .login {
-    background-image: url('../images/login/login_bg.jpg');
-    position: fixed; 
-    top: 0; 
-    left: 0; 
-	
+    background-image: url("../images/login/login_bg.jpg");
+    position: fixed;
+    top: 0;
+    left: 0;
+
     /* Preserve aspet ratio */
     min-width: 100%;
     min-height: 100%;
@@ -22,23 +22,27 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.login-main img{
+.login-main img {
     padding-top: 1rem;
     width: 120px;
-    height: 27px;   
+    height: 27px;
 }
 
-.login-main span{
-    color: #0067B8;
+.login-main p {
+    color: black;
 }
 
-.login-main span:hover{
+.login-main span {
+    color: #0067b8;
+}
+
+.login-main span:hover {
     text-decoration: underline;
-    color:grey;
+    color: grey;
     cursor: pointer;
 }
 
-.login-main-email input{
+.login-main-email input {
     border: none;
     border-bottom: solid 1px #000;
     margin: 2% 0;
@@ -48,7 +52,7 @@
 }
 
 .login-main-email input:focus {
-    border-bottom: solid 2px #0067B8;
+    border-bottom: solid 2px #0067b8;
 }
 
 .login-main-button {
@@ -56,18 +60,17 @@
     margin-bottom: 20%;
 }
 
-.login-main-button button{
+.login-main-button button {
     height: 1.8rem;
     width: 5.2rem;
     border: none;
     color: #fff;
-    background-color: #0067B8;
+    background-color: #0067b8;
 }
 
-.login-main-button button:hover{
+.login-main-button button:hover {
     cursor: pointer;
 }
-
 
 @media screen and (max-width: 1080px) {
     .login-main {
@@ -81,26 +84,26 @@
         font-family: Arial, Helvetica, sans-serif;
     }
 
-    .login-main h2{
+    .login-main h2 {
         font-size: 21px;
     }
 
-    .login-main img{
+    .login-main img {
         padding-top: 0.8rem;
         width: 100px;
-        height: 20px;   
+        height: 20px;
     }
-    
+
     .login-main-button {
         margin-left: 60%;
         padding-right: 1rem;
     }
 
-    .login-main-button button{
+    .login-main-button button {
         height: 1.6rem;
         width: 4.5rem;
         border: none;
         color: #fff;
-        background-color: #0067B8;
+        background-color: #0067b8;
     }
 }
