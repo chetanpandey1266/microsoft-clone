@@ -1,39 +1,98 @@
-# Microsoft Clone 
+# Index:
 
-## Tech Stack Used 
-- React, simple peer: for frontend
-- express, socket.io : for backend
-- mongodb-atlas, mongoose: for database
+1. Introduction
+2. Installation
+3. Folder Structure
+4. Implementation
 
-## How I planned the project 
+## Introduction
 
-Coming Soon😅
+## Installation
 
-## How I implmented the frontend part 
+Clone this repository
 
-I had mainly three components: 
-- MainPage: This makes up the landing page of the site. It is basically made up of three subcomponents, i.e., `header`, `landing page` and `footer`. 
-- Login/Signup: For login/signup feature, I have made multipage form. 
-- User.js: User component comprises is made up of three subcomponents, i.e., `UserNavbar`, `UserSidebar`, `UserMain`. `UserMain` is a container that contains, `UserMainChat`, `UserMainTeam` and `UserMainCalendar`. Each one of them appears on the basis of what  is selected on the sidebar.
+```shell
+git clone https://github.com/chetanpandey1266/microsoft-clone.git
+```
 
-## How I implemented the backend part 
+Move to the repository's root folder
 
-The backend folder contains a `server.js` and `routes/user.js` file. Schema for mongoose is defined in `Schema` folder. 
+```shell
+cd microsoft-clone
+```
 
-`server.js`: This is the main backend file which contains code for creating server, connecting database and making socket connection. Routes such as `/`, `/signup01`, `/signup02`, `/signin01`, `signin02` are defined within it.
+### For running the react app
 
-The funtions of each routes:
-    
-- `/`: just sends a `200` response.
-- `/signup01`: This takes in the username and email from the fronten and checks whether a user with same email exists or not. In case a user with same email is found it returns `400` error. Otherwise it redirects to the second page `/signup02`. On redirection, the username and email is passed as query string to the next page.
-- `/signup02`: This accepts password from the form and takes username and email from the query string. Then the password is hashed using `bcrypt` and finally saved to the database. The database contains a `generateAuthToken` method which takes in `_id` and returns jwttoken for the user. This jwttoken is passed on as query string to the `/user` page.
-- `/signin01`: This accepts user email and checks whether the provided email is present in the database or not. If user is present then it continues to the next page `/signin02` else it returns `404` error.
-- `/signin02`: It takes in email from querystring and password from the form. This password is compared against the one in the database. If the password matches, a jwt token is generated (same as in `/signup02`) and passed on to the frontend as querystring.
+```shell
+cd microsoft-frontend
+npm install
+npm start
+```
 
-After signup/signin, the jwt passed onto the frontend as querystring is saved in the localStorage. On signup/signin only, the websocket connection is made and socket id is saved in the localStorage. All this happens  once the user is signin/signup. This ensures that the socket connection that is established once remains until the user is signed. As I have not designed signout button till now, so everytime a newuser signups, the localStorage is cleared inorder to save token and socketid of the new user.  
+### For running the express app
 
-NEW CHANGE: Now the socket_id is changed everytime the user refreshes its page. This is done because if we keep a single socket id then when we end the call that socket connection will break and no more calls can be made after that. But if we keep connect everytime the page refreshes, a new connection is made using which call can be made by the user again and again. 
+Open the `config/defualt.json` file and fill in all the configuration details
 
-Still there is a drawback that everytime after ending the call the page should be refreshed to make a new call. As `socket.connect()` is written within the `useEffect()`, so new connection is established once the page refreshes.
+Note: Switch on [Less Secure App](https://accounts.google.com/signin/v2/challenge/pwd?continue=https%3A%2F%2Fmyaccount.google.com%2Flesssecureapps&service=accountsettings&osid=1&rart=ANgoxcdbq_k-DdEfD8NowR_H2bUXewvuFAFrbZQUj4FzcLbco89A9pfFUk0Hq0qJqSxCxKxFhodvlg2a-PbEbGOYtS-fNe8WYw&TL=AM3QAYZUHLr8-GRHwbAzraWjtYwa7Yk2xGUDGE-hB_RDq4UWvFPgc9LoOKrByFWZ&flowName=GlifWebSignIn&cid=1&flowEntry=ServiceLogin) for the above email.
 
-NOTE: There are some incomplete codes in `microsoft-frontend/src/components/User/UserMain/UserMainTeam.js` which I am working on. But they don't affect the app in anyway. 
+```shell
+npm install
+npm start
+```
+
+## Folder Structure:
+
+### 1. React app
+
+All the files/folders under `/microsoft-frontend`, contains the reactjs code.
+
+There are three folders under `/microsoft-frontend/src`:
+
+1. **components**: contain all the components defined in the app. It contains three more folders:
+   a. **Loginup**: Contain components used for signin/signup page.
+   b. **MainPage**: Contain components that define the landing page of the app
+   c. **User**: Contain components that define the user page.
+
+2. **images**: contains all the images used in the app
+
+3. **styles**: contains all the css files.
+
+### 2. Express app
+
+The root folder contains all the backend files/folders.
+
+1. **config**: `/default.json` under this folder contain all the configuration variables.
+
+2. **helper**: `/chat.js` under this folder contains all the functions used for handling chat functionality
+
+3. **routes**: `/user.js` under the this defines the `user` route
+
+4. **Schema**: contains the schema defined for the collections in mongodb.
+
+5. **server.js**: This is the main server file which contains all the backend codes.
+
+## Implementation
+
+The following routes are defined in the app:
+
+1. **/**: The landing page of the app is rendered.
+
+2. **/signin01**: The first page of the two-page login form is rendered at this route. This accepts the email of the user and redirects the user to `/signin02`
+
+3. **/signin02**: The second page of the two-page login form is rendered at this route. This accepts the password of the user and redirects to `/user` if the password and email is found correct else displays `User not registered` if the user is not registered or `Wrong Password. Try Again!` if the user types wrong password.
+
+4. **/signup01**: The first page of the two-page signup form is rendered at this route. This accepts the name and email of the user and then redirects to `/signup02`. If the email is already in use it displays the message `Already Registered`
+
+5. **/signup02**: The second page of the two-page signup form is rendered at this route. This accepts the password of the user and redirects to `/user`.
+
+6. **/user**: This renders the user page.
+
+### More about `/user`
+
+The user page contains a sidebar, navbar and the main component which renders the profile section when the user first logs in.
+
+The sidebar show three buttons `profile`, `chat` and `team`, clicking on which the user moves to respective sections.
+
+#### A short intro to each section
+
+1. **profile**: It contains two input fields that displays user's name and email. The user can change their name and email by changing the value and clicking the save button.

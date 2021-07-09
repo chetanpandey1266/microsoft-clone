@@ -176,7 +176,6 @@ io.on("connection", (socket) => {
 
 app.post("/signin01", (req, res) => {
     const email = req.body.email;
-    if (!User.find({ email: email })) res.status(404).send("Not Registered");
     console.log(email);
     res.redirect(`/signin02?email=${email}`);
 });
@@ -286,7 +285,7 @@ app.post("/email", (req, res) => {
 
 const port = process.env.PORT || 5000;
 
-if (true || process.env.NODE_ENV === "production") {
+if (process.env.NODE_ENV === "production") {
     app.use(express.static(path.join(__dirname, "/microsoft-frontend/build")));
     app.get("*", (req, res) => {
         res.sendFile(
