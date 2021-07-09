@@ -5,14 +5,12 @@ import axios from "../../Axios";
 
 function Login02() {
     const [pswrd, setPswrd] = useState();
-    const [err, setErr] = useState("");
 
     const handleSubmit = () => {
         axios
             .post("/signin02", pswrd)
             .then(() => console.log("Suceeded"))
             .catch((err) => {
-                setErr("error hai");
                 console.log(err);
             });
     };
@@ -38,7 +36,6 @@ function Login02() {
                     </form>
                     <p>
                         <span>Forgot Password!</span>
-                        {err}
                     </p>
                     <div className="login-main-button">
                         <button form="login02" type="submit">
