@@ -66,7 +66,7 @@ function User() {
             </div>
         );
     }
-    return <div>Login Details May be Wrong</div>;
+    return <div></div>;
 }
 
 export default User;
