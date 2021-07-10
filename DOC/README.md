@@ -103,7 +103,7 @@ The sidebar show three buttons `profile`, `chat` and `team`, clicking on which t
 
 3. **team**: It contains a single input field and two buttons. If the user is the initiator, the user can click `Create Room` button to create a new meet, else the user can roomID provided by another user to enter the room.
 
-## Deatils on Chat feature
+## Details on Chat feature
 
 The frontend code for the chat section is given in `microsoft-frontend/src/components/User/UserMain/UserMainChat.js`. Three components are defined under this file, i.e, `Messages`, `Message`, `UserMainChat`.
 
@@ -126,5 +126,3 @@ The frontend code for the team section is given in `microsoft-frontend/src/compo
 2. **Video**:
 
 3. **UserMainTeam**:
-
-4.
