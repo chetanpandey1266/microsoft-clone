@@ -42,6 +42,8 @@ cd microsoft-clone
 
 ##### For running the react app
 
+Get to the root folder and type this:
+
 ```shell
 cd microsoft-frontend
 npm install
@@ -49,6 +51,8 @@ npm start
 ```
 
 ##### For running the express app
+
+Get to the root folder.
 
 Open the `config/defualt.json` file and fill in all the configuration details
 

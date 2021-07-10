@@ -3,7 +3,9 @@
 1. Introduction
 2. Installation
 3. Folder Structure
-4. Implementation
+4. Description of each routes
+5. Details on Chat feature
+6. Deatils on Team feature
 
 ## Introduction
 
@@ -71,7 +73,7 @@ The root folder contains all the backend files/folders.
 
 5. **server.js**: This is the main server file which contains all the backend codes.
 
-## Implementation
+## Description of each routes
 
 The following routes are defined in the app:
 
@@ -93,6 +95,36 @@ The user page contains a sidebar, navbar and the main component which renders th
 
 The sidebar show three buttons `profile`, `chat` and `team`, clicking on which the user moves to respective sections.
 
-#### A short intro to each section
+#### A short intro to each section on `/user`
 
 1. **profile**: It contains two input fields that displays user's name and email. The user can change their name and email by changing the value and clicking the save button.
+
+2. **chat**: It contains a single input fields where the user can enter the room name that he/she wants to join. On clicking the `Join Room` button, the user is redirected to chat window where with a welcome message.
+
+3. **team**: It contains a single input field and two buttons. If the user is the initiator, the user can click `Create Room` button to create a new meet, else the user can roomID provided by another user to enter the room.
+
+## Deatils on Chat feature
+
+The frontend code for the chat section is given in `microsoft-frontend/src/components/User/UserMain/UserMainChat.js`. Three components are defined under this file, i.e, `Messages`, `Message`, `UserMainChat`.
+
+#### Description of these components:
+
+1. **Message**:
+
+2. **Messages**:
+
+3. **UserMainChat**:
+
+## Details on Team feature
+
+The frontend code for the team section is given in `microsoft-frontend/src/components/User/UserMain/UserMainTeam.js`. Three components are defined under this file, i.e, `Room`, `Video`, `UserMainTeam`.
+
+#### Description of these components:
+
+1. **Room**:
+
+2. **Video**:
+
+3. **UserMainTeam**:
+
+4.
