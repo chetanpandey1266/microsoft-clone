@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "../../../Axios";
 
-function UserMainProfile(props) {
+function UserMainProfile() {
     const [userName, setUserName] = useState("");
     const [userEmail, setUserEmail] = useState("");
 
@@ -15,7 +15,6 @@ function UserMainProfile(props) {
     const email = localStorage.getItem("email");
 
     function userUpdate() {
-        // debugger;
         axios
             .put("/profile", {
                 email,

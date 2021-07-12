@@ -26,19 +26,13 @@ const Message = ({ message: { user, msg }, name }) => {
         <div className="messageContainer justifyEnd">
             <p className="sentText pr-10">{trimmedName}</p>
             <div className="messageBox backgroundBlue">
-                <p className="messageText colorWhite">
-                    {/* {ReactEmoji.emojify(msg)} */}
-                    {msg}
-                </p>
+                <p className="messageText colorWhite">{msg}</p>
             </div>
         </div>
     ) : (
         <div className="messageContainer justifyStart">
             <div className="messageBox backgroundLight">
-                <p className="messageText colorDark">
-                    {/* {ReactEmoji.emojify(msg)} */}
-                    {msg}
-                </p>
+                <p className="messageText colorDark">{msg}</p>
             </div>
             <p className="sentText pl-10 ">{user}</p>
         </div>
@@ -53,17 +47,15 @@ function UserMainChat(props) {
     const [dummyID, setdummyID] = useState("");
     const [message, setMessage] = useState("");
     const [messages, setMessages] = useState([]);
-    const [roomName, setRoomName] = useState("");
 
     const name = localStorage.getItem("name");
 
     useEffect(() => {
         if (room !== "") {
-            socket.emit("joinRoom", { name, room }, () => {});
             if (Msg[room] !== undefined) {
-                console.log(Msg[room]);
                 setMessages(Msg[room]);
             }
+            socket.emit("joinRoom", { name, room }, () => {});
         }
     }, [room]);
 
@@ -73,12 +65,7 @@ function UserMainChat(props) {
 
     useEffect(() => {
         socket.on("message", (message) => {
-            console.log(message.user, Msg[room]);
-            if (message.user === "admin" && Msg[room].length !== 0) {
-                setMessages(messages);
-            } else {
-                setMessages([...messages, message]);
-            }
+            setMessages([...messages, message]);
         });
         Msg[room] = messages;
         localStorage.setItem("user_msgs", JSON.stringify(Msg));
@@ -112,9 +99,7 @@ function UserMainChat(props) {
                     </header>
                     <div className="userName-main-chat-body">
                         <div className="userName-main-chat-mainside">
-                            {/* <div className="userName-main-chat-messages"> */}
                             <Messages messages={messages} name={name} />
-                            {/* </div> */}
                             <form className="userName-main-chat-form">
                                 <input
                                     id="msg"

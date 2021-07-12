@@ -1,8 +1,5 @@
 import React from "react";
 import "../../styles/user/usersidebar.css";
-// import chat from '../../images/user/chat.png'
-// import calendar from '../../images/user/calendar.png'
-// import team from '../../images/user/team.png'
 
 function UserSidebar(props) {
     return (

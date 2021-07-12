@@ -81,7 +81,7 @@ function UserMainTeam(props) {
                     userVideo.current.srcObject = stream;
                     socket.emit("join room");
                     socket.on("all users", (users) => {
-                        const Peers = []; // this is just for knowing that how much videos to render
+                        const Peers = [];
                         users.forEach((userId) => {
                             const peer = new createPeer(
                                 userId,

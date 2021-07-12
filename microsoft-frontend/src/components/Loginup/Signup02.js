@@ -3,7 +3,7 @@ import "../../styles/signup.css";
 import logo from "../../images/navbar/navbar_icon.png";
 import axios from "axios";
 
-function Signup02(props) {
+function Signup02() {
     let [password, setPassword] = useState();
     const handleSubmit = () => {
         axios
@@ -39,7 +39,7 @@ function Signup02(props) {
                     <p>Create a password of min 6 characters</p>
                     <div className="signup-main-button">
                         <button type="submit" form="signup02">
-                            Sign in
+                            Sign up
                         </button>
                     </div>
                 </div>

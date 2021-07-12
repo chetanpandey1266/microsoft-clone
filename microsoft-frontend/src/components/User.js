@@ -34,7 +34,6 @@ function User() {
                 if (!localStorage.getItem("user_msgs")) {
                     localStorage.setItem("user_msgs", JSON.stringify(Msg));
                 }
-                socket.connect("/user");
                 console.log(Date.now());
                 setLogged(true);
                 console.log(e.data[0]);
@@ -49,8 +48,6 @@ function User() {
             console.log(id);
         });
         socket.connect("/user");
-        // }
-        // else setLogged(true);
     }, [values.token]);
 
     const [active, setActive] = useState(0);
@@ -62,7 +59,7 @@ function User() {
                     name={localStorage.getItem("name")}
                     changeActive={setActive}
                 />
-                <UserMain socket={socket} status={active} email={email} />
+                <UserMain socket={socket} status={active} />
             </div>
         );
     }

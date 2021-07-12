@@ -109,11 +109,17 @@ The frontend code for the chat section is given in `microsoft-frontend/src/compo
 
 #### Description of these components:
 
-1. **Message**:
+1. **Message**: Each message block is defined by this component.
 
-2. **Messages**:
+2. **Messages**: This component iterate over all the messages and display them on the screen.
 
-3. **UserMainChat**:
+3. **UserMainChat**: This is the main component having the input box and button to enter a room and after entering a room name it displays a chat box with a welcome message where the user can chat with other users in the same room.
+
+This component uses three main states `room`, which defines the room name and conditionally renders the chatbox, `message`, which stores the message typed by the user and `messages`, that contain all the messages and is finally iterated on to display it on the screen.
+
+There are two `useEffects` defined under this component which triggers when `room` and `message` state changes respectively. If the room is non-empty, then **joinRoom** event is triggered which sends a welcome message to the user who has entered the call and a message to all other users informing them that a user have joined the room. If the user has been already in that room before then it also displays all the previous chats stored in localStorage.
+
+If a user sends a message **sendMsg** event is triggered and as a result of this **message** event is triggered that updates the `messages` state and also stores the message on localStorage. **sendMsg** also defines a callback which clears out the `message` state for new message. The updates messages array is then displayed by the `Messages` component.
 
 ## Details on Team feature
 

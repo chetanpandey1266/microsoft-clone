@@ -9,12 +9,7 @@ const nodemailer = require("nodemailer");
 const cors = require("cors");
 const bcrypt = require("bcrypt");
 const user_route = require("./routes/user.js");
-const {
-    addUsers,
-    removeUsers,
-    getUsers,
-    getUsersInRoom,
-} = require("./helper/chat");
+const { addUsers, removeUsers, getUsers } = require("./helper/chat");
 
 const socket = require("socket.io");
 const io = socket(server, {
@@ -25,7 +20,6 @@ const io = socket(server, {
     },
     path: "/user",
 });
-// hash my password
 
 app.use(
     cors({
@@ -43,7 +37,6 @@ app.use("/user", user_route);
 const mongoose = require("mongoose");
 const User = require("./Schema/user.js");
 const config = require("./config/default.json");
-const { text } = require("express");
 
 mongoose
     .connect(process.env.MONGODB_URI || `${config["connection_string"]}`, {
@@ -89,32 +82,12 @@ io.on("connection", (socket) => {
         callback();
     });
 
-    // events for call
     console.log("Socket Connection established with socket ID:");
     console.log(socket.id);
 
     socket.emit("me", socket.id);
 
-    socket.on("disconnect", () => {
-        socket.broadcast.emit("callEnded");
-    });
-
-    socket.on("callUser", (data) => {
-        // console.log("userToCall ", data);
-        io.to(data.usedToCall).emit("callUser", {
-            signal: data.signalData,
-            from: data.from,
-            name: data.name,
-        });
-    });
-
-    socket.on("answerCall", (data) => {
-        console.log("to ", data.to);
-        io.to(data.to).emit("callAccepted", data.signal);
-    });
-
     // events for team
-
     socket.on("join room", (roomID) => {
         if (users[roomID]) {
             const length = users[roomID].length;
@@ -165,14 +138,7 @@ io.on("connection", (socket) => {
     });
 });
 
-// '/'
-
-// app.get("/", (req, res) => {
-//     console.log(" In / ");
-//     res.status(200).send();
-// });
-
-//Login
+// SignIn Routes
 
 app.post("/signin01", (req, res) => {
     const email = req.body.email;
@@ -201,7 +167,7 @@ app.post("/signin02", async (req, res) => {
         });
 });
 
-// SignUp
+// SignUp Routes
 
 app.post("/signup01", async (req, res) => {
     const name = req.body.name;
@@ -270,7 +236,6 @@ app.post("/email", (req, res) => {
         text: txt,
     };
     transporter.sendMail(mail, (err, data) => {
-        // console.log(err, data);
         if (err) {
             console.log("error occured. Mail not sent");
             res.status(400).send(err.message);
