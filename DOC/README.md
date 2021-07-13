@@ -6,23 +6,23 @@
 4. [Folder Structure](#Folder_Structure)
 5. [Description of each routes](#Description_of_each_routes)
 6. [Details on Chat feature](#Details_on_Chat_feature)
-7. [Deatils on Team feature](#Details_on_Team_feature)
+7. [Details on Team feature](#Details_on_Team_feature)
 
 ## Introduction
 
-Microsoft Team Clone is a functional clone which can used for video calls and chats. It is developed using React in the frontend and express in the backend. Web sockets and WebRtc are used to make the video call and chat feature functional.
+Microsoft Team Clone is a functional clone which can be used for video calls and chats. It is developed using React in the frontend and express in the backend. Web sockets and WebRtc are used to make the video call and chat feature functional.
 
 ## How I planned the project
 
-The day I got my mail from Microsoft, I started planning my project. I referred to some videos and blogs on how to make a video call app. I had some prior knowledge of javascript so I chose to use Reactjs for frontend and Expressjs for backend. I started learning Reactjs from a [youtube plalist](https://youtube.com/playlist?list=PLC3y8-rFHvwgg3vaYJgHGnModB54rxOk3) and in a day or two started working on my frontend. Reading the problem statement, I had this idea that our app should also look same as microsoft team so I designed the landing page that way, picking pictures , text and font color from the original site. After I had developed my landing page, I took a course on expressjs and started learning express parallely. In a day or two I was able to build the signin/signup and user page and had also a pretty basic knowledge on how to setup servers in express.
+The day I got my mail from Microsoft, I started planning my project. I referred to some videos and blogs on how to make a video call app. I had some prior knowledge of javascript so I chose to use Reactjs for frontend and Expressjs for backend. I started learning Reactjs from a [youtube playlist](https://youtube.com/playlist?list=PLC3y8-rFHvwgg3vaYJgHGnModB54rxOk3) and started working on the frontend. While going through the problem statement, I had this idea that our app should also look similar to microsoft team so I designed the landing page accordingly, selecting pictures, text and font color from the original site. After I developed my landing page, I took a course on expressjs and started learning express on side. Within a couple of days I build the signin/signup and user page and had also a basic knowledge on how to setup servers in express.
 
-From the second week I started working the signin/signup functionality. In four to five days I was able to setup a mongodb database and make login/signup feature functional. After that I started to read about Web Sockets and WebRTC. I referred to some blogs to learn about [Web Sockets](https://ably.com/topic/websockets) and read Socket.io documentation to implement it. I learned about how to register events and then emitting those events. For webRTC, I came across a famous npm package called simple-peer, which was based on webRTC and started to work on video call feature. It took me more than a week to make finally make the video call functional.
+From the second week I started working on the signin/signup functionality. In four to five days I was able to setup a mongodb database and make login/signup feature functional. After that I started to read about Web Sockets and WebRTC. I referred to some blogs to learn about [Web Sockets](https://ably.com/topic/websockets) and read SocketIO documentation to implement it. I learned about how to register events and then emitting those events. I came across a famous npm package called simple-peer, which was based on webRTC and started to work on the video call feature. It took me more than a week to finally make the video call feature functional.
 
-As by the end of the third week I had pretty good knowledge of websockets so I decided to work upon the chat functionality. I referred to socket.io documentation and some videos to make the chat feature. I started it on 4th July and was able to complete it by 5th. But that time the chats were not session persistent, that is the chats persisted only till the user is in the chat section. So I had to think of a way to make it session persistent so that the user can start a chat before the meeting and can continue it after the meeting. I tried storing the chats on database but I faced some issue and had to finally drop that idea. As I had just four-five days to wrap up my project and also had to deploy it so I thought of a hacky way and stored the chats on localStorage. This made the chats session persistent and finally my chat feature was functional meeting the minimum requirement.
+By the end of the third week I had good knowledge of websockets so I decided to work upon the chat functionality. I referred to socket.io documentation and some videos to make the chat feature. I started it on 4th July and was able to complete it by 5th. But that time the chats were not session persistent, i.e., chats were only visible till the user remained on the chat section. If the user switched to profile or team sections the chats were lost. So I had to figure out a way to make it session persistent so that the user can start a chat before the meeting and can continue it after the meeting. I tried storing the chats on my database but I faced some issues and had to finally drop that idea. As I had just four-five days to wrap up my project and also to deploy it so I thought of a solution and stored the chats on localStorage. This made the chat session persistent and finally my chat feature was functional.
 
-Last four to five days, I worked on deployment, video demo and documentation.
+In last four to five days, I worked on deployment, video demo and documentation.
 
-This is how I divided my work into four four stages, i.e., `Design`, `Build`, `Adopt` and `Deploy`.
+This is how I scheduled my project in four stages, i.e., `Design`, `Build`, `Adapt` and `Deploy`, using **Agile Methodology**.
 
 ## Installation
 
