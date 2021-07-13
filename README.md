@@ -12,6 +12,8 @@
 
 ![Sample Video](./demo/demo.gif)
 
+[![](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/pAan88go_CI)
+
 ## Index
 
 1. [Introduction](#Introduction)

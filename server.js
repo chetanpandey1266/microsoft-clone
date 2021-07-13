@@ -92,7 +92,6 @@ io.on("connection", (socket) => {
         if (users[roomID]) {
             const length = users[roomID].length;
             if (length === 4) {
-                socket.emit("room full");
                 return;
             }
             users[roomID].push(socket.id);
