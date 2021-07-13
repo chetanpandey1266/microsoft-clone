@@ -22,7 +22,7 @@ As by the end of the third week I had pretty good knowledge of websockets so I d
 
 Last four to five days, I worked on deployment, video demo and documentation.
 
-This is how I divided my work into four four stages
+This is how I divided my work into four four stages, i.e., `Design`, `Build`, `Adopt` and `Deploy`.
 
 ## Installation
 
