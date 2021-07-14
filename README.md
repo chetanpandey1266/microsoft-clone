@@ -19,6 +19,7 @@
 1. [Introduction](#Introduction)
 2. [Documentation](#Documentation)
 3. [How to use](#How_to_Use)
+4. [Note](#Note)
 
 ### Introduction
 
