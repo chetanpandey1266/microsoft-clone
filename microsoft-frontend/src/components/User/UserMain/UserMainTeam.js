@@ -63,17 +63,14 @@ function UserMainTeam(props) {
     const [roomID, setroomID] = useState("");
     const [video, setVideo] = useState(true);
     const [audio, setAudio] = useState(true);
-    const [val, setVal] = useState(true);
     const [email, setEmail] = useState("");
     const peersRef = useRef([]);
 
     const userVideo = useRef();
 
     useEffect(() => {
-        if (!(roomID === "") && val) {
+        if (roomID !== "") {
             socket.connect(`${process.env.BASE_URL}/user`);
-            console.log("one timer", roomID, val);
-            setVal(false);
             navigator.mediaDevices
                 .getUserMedia({ video: true, audio: true })
                 .then((stream) => {

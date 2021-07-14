@@ -146,4 +146,10 @@ The frontend code for the team section is given in `microsoft-frontend/src/compo
 
 2. **Video**: This displays the video of other users in the room.
 
-3. **UserMainTeam**:
+3. **UserMainTeam**: This is the main component which renders the the **Room** component. Once the user creates a room or joins a room, a `join room` event is emitted which adds the the user's socketid in an object having `roomID` as the key. Then it takes all the other users in the video call and store their socketids in a constant called `userInThisRoom` which is later passed on to `all users` event which creates a peer for all the other users in the room and stores it in an array. This is the basic design of **mesh network**.
+
+In a mesh network, each node is connected to every other node in the network. As simple-peer establishes a peer-to-peer connection, so for making a video call possible between multiple user each user must have a peer that is connected to other user's peer. For example, if we have four users in our room then each user must maintain an array of three peers which can be used to connect to other three users in the room.
+
+`sending signal` and `receieving signal` events are used for adding new user to the room and sending signal to all other users adding a new peer to their array of peers, making the video call possible.
+
+In `join room` event I had set the limit to 4 people per room.

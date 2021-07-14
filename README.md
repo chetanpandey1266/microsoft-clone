@@ -66,3 +66,9 @@ npm start
 ```
 
 Note: You should have two terminal instances for running frontend and backend simulataneously.
+
+### Note:
+
+1. Always use **Chromium-based browser** for running this web app
+2. Use a laptop or desktop for running this app.
+3. Use `https` for running this app
